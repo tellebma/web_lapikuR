@@ -1,13 +1,12 @@
 <html>
     <head>
+        <meta charset="utf-8">
         <title>LapikuR</title>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      
-        
         <!--Import Google Icon Font
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         -->
@@ -17,10 +16,7 @@
         -->
     </head>
     <header>
-        
-
             <nav>
-                
                 <div class="nav-wrapper container">
                     <a href="#" class="brand-logo">LaPikuR</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -30,7 +26,6 @@
                     </ul>
                 </div>
             </nav>
-        
     </header>
     <body>
         <div class="container">
@@ -48,51 +43,36 @@
                       </div>
                   </div>
                   <div class="center">
-                      
-                        <button class="btn" type="submit" name="action">Connexion
-                            
-                          </button> 
-                      
-                        <button class="btn" type="submit" name="action">S'Enregistrer
-                            
-                          </button>
-                     
-
+                        <button class="btn" type="submit" name="action">Connexion</button> 
+                        <button class="btn" type="submit" name="action">S'Enregistrer</button>
                     </div>
                 </form>
             </div>
             <h1>Register</h1>
             <div id="signup" class="row">
                 <form method="POST" class="col s10" action="register.php">
-                  <div class="row">
-                      <div class="input-field col s3">
+                    <div class="row">
+                        <div class="input-field col s3">
                             <input id="ident_reg" type="text" class="validate" minlength="4" required>
                             <label for="ident_reg">Identifiants</label>
                         </div>
                         <div class="input-field col s4">
                             <input id="email_reg" type="email" class="validate" required>
                             <label for="email_reg">E-Mail</label>
-                          </div>
-                          <div class="row">
-                        <div class="input-field col s3">
-                        <input id="password_reg" type="password" class="validate" minlength="8" required>
-                        <label for="password_reg">Password</label>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="center">
-                        <button class="btn" type="submit" name="action">S'Enregistrer
-                            
-                          </button>
-                      </div>
-
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <input id="password_reg" type="password" class="validate" minlength="8" required>
+                                <label for="password_reg">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="center">
+                                <button class="btn" type="submit" name="action">S'Enregistrer</button>
+                        </div>
                     </div>
                 </form>
             </div>
-
         </div>
-        
-
     </body>
-    
 </html>

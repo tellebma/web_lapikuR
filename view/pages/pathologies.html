@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>LapikuR</title>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../styles/materialize.min.css"  media="screen,projection"/>
+        <!--Styles-->
+        <link type="text/css" rel="stylesheet" href="../styles/pathologie.css"/>
+        <!--Scripts-->
+        <script src="../scripts/main.js"></script>
+        <script src="../scripts/pathologie.js"></script>
+
+    </head>
+
+    <header>
+        <nav class="nav1">
+        </nav>
+    </header>
+
+    <body onload="fillHeader()">
+        <div id="list-pathologies">
+            <ul class="collection">
+                <li class="collection-item"> méridien du poumon externe
+                    <button class="link" onclick="showData('data1')">Symptomes</button>
+                    <ul class="collection data" id="data1">
+                        <li class="collection-item">Poumons</li>
+                        <li class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                    </ul>
+                </li>
+                <li class="collection-item"> méridien du poumon interne
+                    <button class="link" onclick="showData('data2')">Symptomes</button>
+                    <ul class="collection data" id="data2">
+                        <li class="collection-item">Poumons</li>
+                        <li class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                    </ul>
+                </li>
+                <li class="collection-item"> zang poumon plein
+                    <button class="link" onclick="showData('data3')">Symptomes</button>
+                    <ul class="collection data" id="data3">
+                        <ldatai class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="search-pathologies">
+            <input type="text" id="name-pathologie"/>
+            <label for="name-pathologie">Nom pathologie</label>
+        </div>
+    </body>
+</html>

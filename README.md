@@ -2,4 +2,4 @@
 
 Pour push, pull... utiliser votre *Personal Access Token* disponible sur Github. 
 
-## *** Je vous baise. ***
+## ***Je vous baise.***

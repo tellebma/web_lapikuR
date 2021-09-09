@@ -1,18 +1,27 @@
 <?php
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 // Routing
-$page = 'home';
+$page = 'index';
+
 if (isset($_GET['p'])){
     $page = $_GET['p'];
 }
 
 // Rendu du template
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view/pages');
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view');
 $twig = new \Twig\Environment($loader, []);
 
-if ($page === 'home'){
-    echo $twig->render('index.twig');
+switch ($page) {
+    case 'index':
+        echo $twig->render('index.twig');
+        break;
+    case 'pathologies':
+        echo $twig->render('pathologies.twig');
+        break;
+    case 'criteres':
+        echo $twig->render('criteres.twig');
+        break;
 }

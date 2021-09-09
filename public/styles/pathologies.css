@@ -1,0 +1,9 @@
+.data {
+    display: none;
+}
+
+.collection, #search-pathologies {
+    margin: auto;
+    width: 25vw;
+    margin-top: 10px;
+}

@@ -10,8 +10,8 @@ if (isset($_GET['p'])){
 
 // Rendu du template
 
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/view/pages');
-$twig = new Twig_Environment($loader);
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view/pages');
+$twig = new \Twig\Environment($loader, []);
 
 if ($page === 'home'){
     echo $twig->render('index.twig');

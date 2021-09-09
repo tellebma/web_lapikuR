@@ -18,3 +18,7 @@ root:root
 
 user:password 
 
+
+## Usefull:
+rooting avec Symfony
+https://symfony.com/doc/current/routing.html

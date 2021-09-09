@@ -31,44 +31,44 @@
         <div class="container">
             <h1>Login</h1>
             <div id="signin" class="row">
-                <form method="POST" class="col s10" action="login.php">
+                <form action="./view/pages/php/login.php" method="POST" class="col s10">
                   <div class="row">
                       <div class="input-field col s5">
-                            <input id="ident" type="text">
+                            <input name="ident" id="ident" type="text">
                             <label for="ident">Identifiants</label>
                         </div>
                       <div class="input-field col s5">
-                        <input id="password" type="password">
+                        <input name="password" id="password" type="password">
                         <label for="password">Password</label>
                       </div>
                   </div>
                   <div class="center">
-                        <button class="btn" type="submit" name="action">Connexion</button> 
-                        <button class="btn" type="submit" name="action">S'Enregistrer</button>
+                        <button class="btn" type="submit">Connexion</button> 
+                        <button class="btn" type="submit">S'Enregistrer</button>
                     </div>
                 </form>
             </div>
             <h1>Register</h1>
             <div id="signup" class="row">
-                <form method="POST" class="col s10" action="register.php">
+                <form action="./view/pages/php/register.php" method="POST" class="col s10" >
                     <div class="row">
                         <div class="input-field col s3">
-                            <input id="ident_reg" type="text" class="validate" minlength="4" required>
+                            <input name="ident_reg" id="ident_reg" type="text" class="validate" minlength="4" required>
                             <label for="ident_reg">Identifiants</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="email_reg" type="email" class="validate" required>
+                            <input name="mail" id="email_reg" type="email" class="validate" required>
                             <label for="email_reg">E-Mail</label>
                         </div>
                         <div class="row">
                             <div class="input-field col s3">
-                                <input id="password_reg" type="password" class="validate" minlength="8" required>
+                                <input name="password_reg" id="password_reg" type="password" class="validate" minlength="8" required>
                                 <label for="password_reg">Password</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="center">
-                                <button class="btn" type="submit" name="action">S'Enregistrer</button>
+                                <button class="btn" type="submit" >S'Enregistrer</button>
                         </div>
                     </div>
                 </form>

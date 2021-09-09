@@ -1,20 +1,17 @@
 <?php
 
 function OpenCon(){
-    $servername = 'localhost';
-    $username = 'root';
-    $password = 'root';
-    $db = 'web_db'
+    $username = 'user';
+    $password = 'password';
 
-    //On établit la connexion
-    $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
- 
+    
+    // Create connection
+    $conn = new PDO('mysql:host=localhost;dbname=web_db', $username, $password);
+
+    // Check connection
+    
     return $conn;
+
 }
 
-
-function CloseCon($conn)
- {
- $conn -> close();
- }
 ?>

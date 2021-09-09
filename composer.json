@@ -1,0 +1,8 @@
+{
+    "name": "root/web_lapiku-r",
+    "description": "project web",
+    "type": "project",
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

@@ -37,12 +37,11 @@ class DataBase {
      * Requests everything from a table without restrictions.
      * 
      * @param Object $pdo Object representing the database.
-     * @param String $tableName Name of the table that we want to retrieve data from.
-     * @param String $orderElement Name of the element of the dable we want to use in order to order data received. 
+     * @param String $query Query that is going to be sent to the database.
      * @return Array The result of the request.
      */
-    function queryAll($pdo, $tableName, $orderElement){
-        return $pdo->query('SELECT * FROM ' . $tableName . ' ORDER BY ' . $orderElement . ' DESC');
+    function query($pdo, $query){
+        return $pdo->query($query);
     }
 } 
 

@@ -12,15 +12,12 @@ if (isset($_GET['p'])){
 
 // Test
 
-$db = (new DataBase())->connect();
-$test = $db->query('SELECT * FROM meridien ORDER BY code DESC LIMIT 10');
-$ttt = $test->fetchAll(PDO::FETCH_ASSOC);
-foreach ($ttt as &$value){
-    foreach($value as &$aled){
-        echo $aled;
-        echo "\r\n";
-    }
+function test(){
+    $test = new DataBase();
+    $db = $test->connect();
+    return $test->queryAll($db, "meridien", "code");
 }
+
 
 // Rendu du template
 

@@ -12,7 +12,7 @@ class UserManagement {
         }
     }
     function register($id,$pass,$email){
-        $result = ((new DataBase())->connect())->query("SELECT * FROM `user_db` WHERE `user` LIKE '".$id."';");
+        $result = ((new DataBase())->connect())->query("SELECT * FROM `user` WHERE `name` LIKE '".$id."';");
         $find = FALSE;
         foreach  ($result as $row) {
             if ($row["user"] == $id){
@@ -23,7 +23,7 @@ class UserManagement {
           if ($find == TRUE){
             print_r("Vous devez trouver un autre nom d'utilisateur !");
           }else {
-              $result = ((new DataBase())->connect())->query("INSERT INTO `user_db` (`id`, `user`, `password` , `email`) VALUES (NULL, '".$id."', '".$pass."', '".$email."');");
+              $result = ((new DataBase())->connect())->query("INSERT INTO `user_db` (`id`, `name`, `pass` , `email`) VALUES (NULL, '".$id."', '".$pass."', '".$email."');");
             if ($result === TRUE) {
                 echo "Vous pouvez maintenant vous connecter");
             } else {

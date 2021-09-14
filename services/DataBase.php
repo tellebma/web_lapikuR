@@ -5,6 +5,7 @@ class DataBase {
     private $_dbHost;
     private $_dbLogin;
     private $_dbPass;
+    private \PDO $_pdo;
 
     /**
      * Constrctor, initialise value needed to connect to the database.
@@ -19,18 +20,9 @@ class DataBase {
         $this->_dbHost = "localhost";
         $this->_dbLogin = "user";
         $this->_dbPass = "password";
-    }
-
-    /**
-     * Connects to the database.
-     * 
-     * @return Object $pdo Represents the database.
-     */
-    function connect() {
-        $pdo = new PDO('mysql:dbname=' . $this->_dbName . ';host=' . $this->_dbHost, $this->_dbLogin, $this->_dbPass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-        return $pdo;
+        $this->pdo = new PDO('mysql:dbname=' . $this->_dbName . ';host=' . $this->_dbHost, $this->_dbLogin, $this->_dbPass);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     }
 
     /**
@@ -40,8 +32,8 @@ class DataBase {
      * @param String $query Query that is going to be sent to the database.
      * @return Array The result of the request.
      */
-    function query($pdo, $query){
-        return $pdo->query($query);
+    function query($query){
+        return ($this->pdo)->prepare($query);
     }
 } 
 

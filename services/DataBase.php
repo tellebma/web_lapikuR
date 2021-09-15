@@ -33,7 +33,7 @@ class DataBase {
      * @return Array The result of the request.
      */
     function query($query){
-        return ($this->pdo)->prepare($query);
+        return ($this->pdo)->query($query);
     }
 } 
 

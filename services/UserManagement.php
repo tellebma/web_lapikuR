@@ -21,13 +21,9 @@ class UserManagement {
 
     function register($name, $pass, $mail){
         if (!($this->elementExist("mail",$mail))){
-            $res = (new DataBase())->prepare("INSERT INTO `user` (`mail`, `name`, `pass`) VALUES ( '".$mail."', '".$name."', '".password_hash($pass, PASSWORD_DEFAULT)."'");
+            $res = (new DataBase())->query("INSERT INTO `user` (`mail`, `name`, `pass`) VALUES ( '".$mail."', '".$name."', '".password_hash($pass, PASSWORD_DEFAULT)."')");
             print_r($res);
-            return True;
         }
-        print_r("this mail already exist.");
-        return False;
-        
     }
 } 
 

@@ -1,0 +1,6 @@
+.collapsible {
+    margin: 2vh auto;
+    overflow: scroll;
+    height: 65vh;
+    width: 80vw;
+}

@@ -10,10 +10,18 @@
 {% block content %}
     <ul class="collapsible">
         {% for pathologie in pathologies %}
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ pathologie.desc }}</div>
-                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ pathologie.desc }}</div>
+                <div class="collapsible-body">
+                    <ul>
+                        {% for symptome in symptomes %}
+                            {% if pathologie.idP == symptome.idP %}
+                                <li>{{ symptome.desc }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
         {% endfor %}
     </ul>
 

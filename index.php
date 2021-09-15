@@ -8,13 +8,13 @@ require 'router/Route.php';
 require 'router/RouterException.php';
 
 require 'services/UserManagementService.php';
-require 'services/PathologieService.php';
 require 'services/DataBaseService.php';
 
 
 // Rendu du template
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view');
-$twig = new \Twig\Environment($loader, []);
+$twig = new \Twig\Environment($loader, ['debug' => true]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
 // Init Routing
 $router = new Router($_GET['url']);

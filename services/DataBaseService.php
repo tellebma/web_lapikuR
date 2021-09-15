@@ -1,6 +1,6 @@
 <?php
 
-class DataBase {
+class DataBaseService {
     private $_dbName;
     private $_dbHost;
     private $_dbLogin;

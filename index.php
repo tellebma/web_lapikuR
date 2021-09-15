@@ -7,13 +7,17 @@ require 'router/Router.php';
 require 'router/Route.php';
 require 'router/RouterException.php';
 
-// Init Routing
-$router = new Router($_GET['url']);
+require 'services/UserManagementService.php';
+require 'services/PathologieService.php';
+require 'services/DataBaseService.php';
+
 
 // Rendu du template
-
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view');
 $twig = new \Twig\Environment($loader, []);
+
+// Init Routing
+$router = new Router($_GET['url']);
 
 // Routing
 require 'router/routers/MainController.php';

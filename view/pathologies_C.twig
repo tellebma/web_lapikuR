@@ -3,10 +3,20 @@
 {% block head %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="public/styles/criteres.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="public/styles/pathologies_C.css"/>
 {% endblock %}
 
 {% block content %}
+    <ul class="collapsible">
+        {% for pathologie in pathologies %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ pathologie.desc }}</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+        {% endfor %}
+    </ul>
+
     <div id="crit-meridien">
         <div class="input-field col s12">
             <select>
@@ -58,6 +68,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('select').material_select();
+        });
+        $(document).onload(function(){
+            $('.collapsible').collapsible();
         });
     </script>
 {% endblock %}

@@ -9,13 +9,49 @@ class UserManagementService {
         return False;
     }
     
+    function passVerify($name, $pass){
+        $log = False;
+        if ($this->elementExist("name",$name)){
+            $q = "SELECT * FROM `user` WHERE `name` = '".$name."';";
+            $result = (Object)(new DataBaseService())->query($q); // It already was an object but was generating an error for some reason ?
+            
+            while ($row = $result->fetch()){ // C'est comme ça pour parse les results
+                //FETCH_ASSOC => pour utiliser les $row['name...]
+                //print_r($row);
+                //print_r($row['pass']);//error
+                $log = password_verify($pass,$row->pass); // En gros maintenant faut check si y a un résultat, et s'il y en a un ba on lui donne un token ou une merde comme ça
+                
+            }
+        }
+
+        return $log;
+    }
+
+    function getUser($name){
+        if ($this->elementExist("name",$name)){
+            $q = "SELECT * FROM `user` WHERE `name` = '".$name."';";
+            $result = (Object)(new DataBaseService())->query($q); // It already was an object but was generating an error for some reason ?
+            
+            while ($row = $result->fetch()){ // C'est comme ça pour parse les results
+                return $row;
+            }
+        }
+        return False;
+    }
+
     function login($name, $pass){
-        
-        $result = (Object)(new DataBaseService())->query("SELECT * FROM `user` WHERE `name` LIKE '".$name."' AND `pass` LIKE '".$pass."';"); // It already was an object but was generating an error for some reason ?
-        while ($row = $result->fetch()){ // C'est comme ça pour parse les results
-            print_r($row); // En gros maintenant faut check si y a un résultat, et s'il y en a un ba on lui donne un token ou une merde comme ça
+        //je ne sais pas comment l'utiliser...
+        if ($this->passVerify($name, $pass)){
+            $usr = $this->getUser($name);
+            echo $GLOBALS['twig']->render('index.twig',[
+                'name'=>$usr->name,
+                'user_session'=>password_hash($usr->name.$usr->pass, PASSWORD_DEFAULT),
+            ]);
+            
+
         }
     }
+
 
     function register($name, $pass, $mail){
         if (!($this->elementExist("mail",$mail))){

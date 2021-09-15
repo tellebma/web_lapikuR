@@ -6,6 +6,29 @@
 
 {% block content %}
 
+    {% if name is defined %}
+        <script type="text/javascript">
+            sessionStorage.setItem('name', "{{ name }}");
+            sessionStorage.setItem('user_session', "{{ user_session }}");
+            //alert("informations ajouté !");
+        </script>
+    {% elseif error is defined %}
+        <blockquote>erreur lors de la connexion</blockquote>
+    {% endif %}
+
+<script type="text/javascript">
+    var session = sessionStorage.getItem('user_session');
+    var name = sessionStorage.getItem('name');
+    
+    if (!!session){
+        console.log("session storage a verifier.")
+        
+    }
+</script>
+
+
+
+
 <div class="container">
     <h1>Login</h1>
     <div id="signin" class="row">

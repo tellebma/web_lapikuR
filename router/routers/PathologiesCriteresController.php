@@ -5,8 +5,8 @@ class PathologiesCriteresController { // FAUT FAIRE FETCHALL PARCE QUE CE FDP DE
         $router->get('/pathologies_C', function(){
             $symptomes = (new DataBaseService())->query(("SELECT symptPatho.idP, symptome.desc FROM patho JOIN symptPatho ON patho.idP = symptPatho.idP JOIN symptome ON symptPatho.idS = symptome.idS"));
             //var_dump($symptomes->fetchAll());
-            echo $GLOBALS['twig']->render('pathologies_C.twig', ['pathologies' => (new DataBaseService())->query(("SELECT * FROM patho"))->fetchAll(),
-                                                                'symptomes' => (new DataBaseService())->query(("SELECT symptPatho.idP, symptome.desc FROM patho JOIN symptPatho ON patho.idP = symptPatho.idP JOIN symptome ON symptPatho.idS = symptome.idS"))->fetchAll()]);
+            echo $GLOBALS['twig']->render('pathologies_C.twig', ['pathologies' => ((Object)new DataBaseService())->query(("SELECT * FROM patho"))->fetchAll(),
+                                                                'symptomes' => ((Object)new DataBaseService())->query(("SELECT symptPatho.idP, symptome.desc FROM patho JOIN symptPatho ON patho.idP = symptPatho.idP JOIN symptome ON symptPatho.idS = symptome.idS"))->fetchAll()]);
         });      
     }
 }

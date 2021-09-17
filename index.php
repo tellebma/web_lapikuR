@@ -30,3 +30,4 @@ $apiController = (new ApiController())->routing($router);
 
 // Run routing
 $router->run();
+?>

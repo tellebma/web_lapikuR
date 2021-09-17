@@ -1,0 +1,70 @@
+{% extends 'layout.twig' %}
+
+{% block head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="public/styles/login.css"/>
+{% endblock %}
+
+{% block content %}
+
+    {% if error is defined %}
+        <blockquote>{{error}}</blockquote>
+    {% endif %}
+
+<div class="container login">
+    <h1>Login</h1>
+    <div id="signin" class="row">
+        <form action="./authentification" method="POST" class="col 10">
+            <div class="row">
+                <div class="input-field col 5">
+                    <input name="name" id="name_l" type="text">
+                    <label for="name">Identifiants</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col 5">
+                    <input name="pass" id="password_l" type="password">
+                    <label for="pass">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center">
+                    <button class="btn" type="submit">Connexion</button> 
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container login">
+    <h1>Register</h1>
+    <div id="signup" class="row">
+        <form action="./register" method="POST" class="col s10" >
+            <div class="row">
+                <div class="input-field col s5">
+                    <input name="name" id="name_r" type="text" class="validate" minlength="4" required>
+                    <label for="name">Identifiants</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s5">
+                    <input name="pass" id="password_r" type="password" class="validate" minlength="8" required>
+                    <label for="pass">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s10">
+                    <input name="mail" id="mail_r" type="email" class="validate" required>
+                    <label for="mail">E-Mail</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="center">
+                    <button class="btn" type="submit" >S'Enregistrer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

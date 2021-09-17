@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="public/styles/pathologies_MC.css"/>
+    <script src="public/scripts/pathologies.js"></script>
+{% endblock %}
+        
+{% block content %}
+    <div id="list-pathologies">
+        <ul class="collection" id="item-list">
+            <li class="collection-item"> méridien du poumon externe
+                <button class="link" onclick="showData('data1')">Symptomes</button>
+                <ul class="collection data" id="data1">
+                    <li class="collection-item">Poumons</li>
+                    <li class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                </ul>
+            </li>
+            <li class="collection-item"> méridien du poumon interne
+                <button class="link" onclick="showData('data2')">Symptomes</button>
+                <ul class="collection data" id="data2">
+                    <li class="collection-item">Poumons</li>
+                    <li class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                </ul>
+            </li>
+            <li class="collection-item"> zang poumon plein
+                <button class="link" onclick="showData('data3')">Symptomes</button>
+                <ul class="collection data" id="data3">
+                    <li class="collection-item">Poumons</li>
+                    <li class="collection-item">Battement des ailes du nez, Dessèchement des phanères ...</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="search-pathologies"> <!--Faut faire un truc ou le mec choisit les symptômes-->
+        <input type="text" onkeyup="searchPathology()" id="name-pathologie"/>
+        <label for="name-pathologie">Nom pathologie</label>
+    </div>
+{% endblock %}

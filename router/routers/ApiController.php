@@ -1,12 +1,14 @@
 <?php
 
+require_once 'services/DataBaseService.php';
+
 class ApiController{
     function routing($router){
         /**
          * Get pathologies
          */
         $router->get('/api/pathologies', function(){
-            // TODO
+            echo json_encode((new DataBaseService())->query("SELECT * FROM patho")->fetchAll(PDO::FETCH_ASSOC));
         });
 
         /**

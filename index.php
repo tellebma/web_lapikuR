@@ -1,15 +1,12 @@
 <?php
 
-// EN GROS : Faut reprendre le truc des autres commit, faire un switch sur L URL et en fonctions appeler le bon router, puis la fonction routing fera le taf !
+header('Access-Control-Allow-Origin');
+header('Content-type: application/json');
 
-require 'vendor/autoload.php';
-require 'router/Router.php';
-require 'router/Route.php';
-require 'router/RouterException.php';
-
-require 'services/UserManagementService.php';
-require 'services/DataBaseService.php';
-
+require_once 'vendor/autoload.php';
+require_once 'router/Router.php';
+require_once 'router/Route.php';
+require_once 'router/RouterException.php';
 
 // Rendu du template
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/view');
@@ -20,12 +17,16 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $router = new Router($_GET['url']);
 
 // Routing
-require 'router/routers/MainController.php';
+require_once 'router/routers/MainController.php';
 $mainController = (new MainController())->routing($router);
-require 'router/routers/PathologiesMotsClefsController.php';
+require_once 'router/routers/PathologiesMotsClefsController.php';
 $pathologiesMotsClefsController = (new PathologiesMotsClefsController())->routing($router);
-require 'router/routers/PathologiesCriteresController.php';
+require_once 'router/routers/PathologiesCriteresController.php';
 $pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
+require_once 'router/routers/PathologiesCriteresController.php';
+$pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
+require_once 'router/routers/ApiController.php';
+$apiController = (new ApiController())->routing($router);
 
 // Run routing
 $router->run();

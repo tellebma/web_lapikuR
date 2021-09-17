@@ -1,5 +1,7 @@
 <?php
 
+require_once 'services/UserManagementService.php';
+
 class MainController {
     function routing($router){
         /**
@@ -20,10 +22,7 @@ class MainController {
                 $usr = $usrManagement->getUser($name);
                 echo $GLOBALS['twig']->render('index.twig',[
                     'name'=>$usr->name,
-                    'user_session'=>password_hash($usr->name.$usr->pass, PASSWORD_DEFAULT),
-                ]);
-                
-    
+                    'user_session'=>password_hash($usr->name.$usr->pass, PASSWORD_DEFAULT)]);
             }else{
                 echo $GLOBALS['twig']->render('index.twig',[
                     'error'=>'une erreur stylé !'

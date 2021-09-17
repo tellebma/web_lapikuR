@@ -1,5 +1,7 @@
 <?php
 
+require_once 'services/DataBaseService.php';
+
 class PathologiesCriteresController { // FAUT FAIRE FETCHALL PARCE QUE CE FDP DE QUERY RENVOIE UN PDOSTATEMENT ET ON PEUT ITERER QUE UNE FOIS DESSUS SAMERE
     function routing($router){
         $router->get('/pathologies_C', function(){

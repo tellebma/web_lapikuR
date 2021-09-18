@@ -1,14 +1,17 @@
 <?php
 
-require_once 'services/DataBaseService.php';
+require_once 'helpers/ApiHelpers.php';
 
-class ApiController{
+require_once 'services/DataBaseService.php';
+require_once 'services/Api/SymptomeServices.php';
+
+class SymptomeController{
     function routing($router){
         /**
          * Get pathologies
          */
         $router->get('/api/pathologies', function(){
-            echo json_encode((new DataBaseService())->query("SELECT * FROM patho")->fetchAll(PDO::FETCH_ASSOC));
+            (new ApiHelpers())->setHeaders();
         });
 
         /**
@@ -35,4 +38,3 @@ class ApiController{
 }
 
 ?>
-

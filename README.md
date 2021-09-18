@@ -36,4 +36,4 @@ https://symfony.com/doc/current/routing.html
 
 # Important !!!
 
-Pour materialiaze, faut mettre 0.97.4, la version qu'on a c'est dla merde pour les select.
+Pour materialiaze, faut mettre 1.0.0, la version qu'on a c'est dla merde pour les select, et faut mettre formSelect du coup pr les select

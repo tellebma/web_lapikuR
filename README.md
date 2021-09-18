@@ -33,3 +33,7 @@ https://symfony.com/doc/current/routing.html
 - Se connecter : Donne le droits de faire la recherche via mot-clef.
 - S'inscrire : Ajout des données en bdd.
 - Session : Rester co après un refresh...
+
+# Important !!!
+
+Pour materialiaze, faut mettre 1.0.0, la version qu'on a c'est dla merde pour les select, et faut mettre formSelect du coup pr les select

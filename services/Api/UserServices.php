@@ -10,7 +10,7 @@ class UserServices{
     }
 
     function listAll(){
-        return(($this->_db)->query("SELECT * FROM patho")->fetchAll(PDO::FETCH_ASSOC));
+        return(($this->_db)->query("SELECT * FROM user")->fetchAll(PDO::FETCH_ASSOC));
     }
 
     function getById(){

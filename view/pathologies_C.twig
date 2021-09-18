@@ -2,22 +2,20 @@
 
 {% block head %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="public/styles/pathologies_C.css"/>
 {% endblock %}
 
 {% block content %}
     <ul class="collapsible">
-        {% for pathologie in pathologies %}
+        {% for item in symptomesByPathologie %}
             <li>
-                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ pathologie.desc }}</div>
+                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
                 <div class="collapsible-body">
                     <ul>
-                        {% for symptome in symptomes %}
-                            {% if pathologie.idP == symptome.idP %}
-                                <li>{{ symptome.desc }}</li>
-                            {% endif %}
+                        {% for symptome in item.symptomes %}
+                            <li>{{ symptome.desc }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -30,9 +28,11 @@
             <div class="input-field col s2 offset-m2">
                 <select>
                     <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    {% set i = 1 %}
+                    {% for meridien in meridiens %}
+                        <option value={{ i }}>{{ meridien.nom }}</option>
+                        {% set i = i + 1 %}
+                    {% endfor %}
                 </select>
                 <label>Meridien</label>
             </div>
@@ -42,9 +42,11 @@
             <div class="input-field col s2">
                 <select>
                     <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    {% set i = 1 %}
+                    {% for pathologie in pathologies %}
+                        <option value={{ i }}>{{ pathologie.desc }}</option>
+                        {% set i = i + 1 %}
+                    {% endfor %}
                 </select>
                 <label>Type de pathologie</label>
             </div>
@@ -54,9 +56,11 @@
             <div class="input-field col s2 ">
                 <select>
                     <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    {% set i = 1 %}
+                    {% for keyword in keywords %}
+                        <option value={{ i }}>{{ keyword.name }}</option>
+                        {% set i = i + 1 %}
+                    {% endfor %}
                 </select>
                 <label>Caractéristique</label>
             </div>
@@ -66,9 +70,11 @@
             <div class="input-field col s2">
                 <select multiple>
                     <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    {% set i = 1 %}
+                    {% for symptome in symptomes %}
+                        <option value={{ i }}>{{ symptome.desc }}</option>
+                        {% set i = i + 1 %}
+                    {% endfor %}
                 </select>
                 <label>Symptômes</label>
             </div>
@@ -77,9 +83,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('select').material_select();
-        });
-        $(document).onload(function(){
+            $('select').formSelect();
             $('.collapsible').collapsible();
         });
     </script>

@@ -5,3 +5,7 @@
     height: 65vh;
     width: 80vw;
 }
+
+.dropdown-content > li > span{ 
+    display: inline-block;
+}

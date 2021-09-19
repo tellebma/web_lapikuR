@@ -9,14 +9,29 @@
 {% endblock %}
 
 {% block content %}
-    <ul class="collapsible">
+    <ul class="collapsible collapsible-master">
         {% for item in symptomesByPathologie %}
             <li>
-                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
+                <div class="collapsible-header master"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }} | {{ item.mer }}</div>
                 <div class="collapsible-body">
                     <ul>
                         {% for symptome in item.symptomes %}
-                            <li>{{ symptome.desc }}</li>
+                            <ul class="collapsible collapsible-slave">
+                                <li>
+                                    <div class="collapsible-header slave"><i class="material-icons">transfer_within_a_station</i>{{ symptome.desc }}</div>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            {% for itemBis in keywordsBySymptome %}
+                                                {% if itemBis.idS == symptome.idS %}
+                                                    {% for keyword in itemBis.keywords %}
+                                                        <li>{{ keyword.name|capitalize }}</li>
+                                                    {% endfor %} 
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
                         {% endfor %}
                     </ul>
                 </div>
@@ -24,61 +39,52 @@
         {% endfor %}
     </ul>
 
-    <div class="row">
-        <div id="crit-meridien">
-            <div class="input-field col s2 offset-m2">
-                <select searchable="Type name">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% set i = 1 %}
-                    {% for meridien in meridiens %}
-                        <option value={{ i }}>{{ meridien.nom }}</option>
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                </select>
-                <label>Meridien</label>
-            </div>
+    <div onchange="filter(event)" class="row">
+        <div class="input-field col s2 offset-m2">
+            <select id="crit-meridien" searchable="Type name">
+                <option value="" disabled selected>Choose your option</option>
+                {% set i = 1 %}
+                {% for meridien in meridiens %}
+                    <option value={{ i }}>{{ meridien.nom }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Meridien</label>
         </div>
 
-        <div id="crit-type-path">
-            <div class="input-field col s2">
-                <select searchable="Type description">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% set i = 1 %}
-                    {% for pathologie in pathologies %}
-                        <option value={{ i }}>{{ pathologie.desc }}</option>
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                </select>
-                <label>Type de pathologie</label>
-            </div>
+        <div class="input-field col s2">
+            <select id="crit-type-path" searchable="Type description">
+                <option value="" disabled selected>Choose your option</option>
+                {% set i = 1 %}
+                {% for pathologie in pathologies %}
+                    <option value={{ i }}>{{ pathologie.desc }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Type de pathologie</label>
         </div>
 
-        <div id="crit-carac">
-            <div class="input-field col s2 ">
-                <select searchable="Type name">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% set i = 1 %}
-                    {% for keyword in keywords %}
-                        <option value={{ i }}>{{ keyword.name }}</option>
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                </select>
-                <label>Caractéristique</label>
-            </div>
+        <div class="input-field col s2 ">
+            <select id="crit-carac" searchable="Type name">
+                <option value="" disabled selected>Choose your option</option>
+                {% set i = 1 %}
+                {% for keyword in keywords %}
+                    <option value={{ i }}>{{ keyword.name }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Caractéristique</label>
         </div>
 
-        <div id="symptome">
-            <div class="input-field col s2">
-                <select multiple searchable="Type description">
-                    <option value="" disabled selected>Choose your option</option>
-                    {% set i = 1 %}
-                    {% for symptome in symptomes %}
-                        <option value={{ i }}>{{ symptome.desc }}</option>
-                        {% set i = i + 1 %}
-                    {% endfor %}
-                </select>
-                <label>Symptômes</label>
-            </div>
+        <div class="input-field col s2">
+            <select id="symptomes" multiple searchable="Type description">
+                {% set i = 1 %}
+                {% for symptome in symptomes %}
+                    <option value={{ i }}>{{ symptome.desc }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Symptômes</label>
         </div>
     </div>
 

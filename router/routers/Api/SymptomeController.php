@@ -8,31 +8,19 @@ require_once 'services/Api/SymptomeServices.php';
 class SymptomeController{
     function routing($router){
         /**
-         * Get pathologies
-         */
-        $router->get('/api/pathologies', function(){
-            (new ApiHelpers())->setHeaders();
-        });
-
-        /**
-         * Get meridiens
-         */
-        $router->get('/api/meridiens', function(){
-            // TODO
-        });
-
-        /**
-         * Get keywords
-         */
-        $router->get('/api/keywords', function(){
-            // TODO
-        });
-
-        /**
          * Get symptomes
          */
-        $router->get('/api/symptomes', function(){
-            // TODO
+        $router->get('/api/symptome/symptomes', function(){
+            (new ApiHelpers())->setHeaders();
+            echo json_encode((new SymptomeServices())->listAll());
+        });
+
+        /**
+         * Get eaach keyword by symptomes
+         */
+        $router->get('/api/symptome/symptomes/keywords', function(){
+            (new ApiHelpers())->setHeaders();
+            echo json_encode((new SymptomeServices())->getKeywordsBySymptome());
         });
     }
 }

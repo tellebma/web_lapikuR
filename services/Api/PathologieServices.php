@@ -38,9 +38,10 @@ class PathologieServices{
     }
 
     function getSymptomesByPathologie(){
-        $res = ($this->_db)->query("SELECT patho.idP AS pidP, patho.desc AS pdesc, patho.mer, patho.type, symptPatho.idP AS spidP, symptome.idS as sidS, symptome.desc as sdesc  FROM patho 
+        $res = ($this->_db)->query("SELECT patho.idP AS pidP, patho.desc AS pdesc, patho.mer, patho.type, meridien.nom, symptPatho.idP AS spidP, symptome.idS as sidS, symptome.desc as sdesc  FROM patho 
                                     JOIN symptPatho ON patho.idP = symptPatho.idP 
                                     JOIN symptome ON symptPatho.idS = symptome.idS 
+                                    JOIN meridien ON patho.mer = meridien.code
                                     ORDER BY patho.idP");
         $i = 0;
         $j = 0;
@@ -52,7 +53,7 @@ class PathologieServices{
                 $array[$i] = array(
                     "desc" => $row['pdesc'],
                     "idP" => $row['pidP'],
-                    "mer" => $row['mer'],
+                    "mer" => $row['nom'],
                     "type" => $row['type'],
                     "symptomes" => array(
                         $j => array(
@@ -70,6 +71,10 @@ class PathologieServices{
             $lastpidP = $row['pidP'];
         }
         return($array);
+    }
+
+    function getMeridienByPathologie(){
+
     }
 } 
 

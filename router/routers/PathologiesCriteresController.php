@@ -9,6 +9,7 @@ class PathologiesCriteresController { // FAUT FAIRE FETCHALL PARCE QUE CE FDP DE
         $router->get('/pathologies_C', function(){
             echo $GLOBALS['twig']->render('pathologies_C.twig', [
                                                         'symptomesByPathologie' => (new PathologieServices())->getSymptomesByPathologie(),
+                                                        'keywordsBySymptome' => (new SymptomeServices())->getKeywordsBySymptome(),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
                                                         'keywords' => (new KeywordServices())->listAll(),

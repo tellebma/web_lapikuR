@@ -48,3 +48,50 @@ document.addEventListener('DOMContentLoaded', event => {
         searchBox.addEventListener('keyup', filterOptions);
     });
 });
+
+// Filter
+
+function filter(event){
+    let select = event.target, tab = document.getElementsByClassName("collapsible-master")[0];
+
+    switch(select.id){
+        case 'crit-meridien':
+            let selectedMeridien = select[select.value].innerHTML;
+            console.log(getMeridienOfEachLi(tab));
+            break;
+        case 'crit-type-path':
+            let selectedPathologie = select[select.value].innerHTML;
+            console.log(getPathologieOfEachLi(tab));
+            break;
+        case 'crit-carac':
+            let selectedKeyword = select[select.value].innerHTML;
+            break;
+        case 'symptomes':
+            let indexOfSelectedSymptomes = M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues(), selectedSymptomes = [];
+            for (index of indexOfSelectedSymptomes){
+                selectedSymptomes.push(select[index-1].innerHTML);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+// Helpers for filter function (EN FAIT c'est ici qu'il faut que je check des trucs. Genre si dans mon elem, le texte du meridien != du selectedmeridien
+// ALORS je vire l'élement en quesiton (instance.destroy() ?))
+
+function getMeridienOfEachLi(ulElement){
+    let tabMeridiens = [];
+    for(elem of document.getElementsByClassName("master")){
+        tabMeridiens.push(elem.lastChild.textContent.split('|')[1].slice(1));
+    }
+    return tabMeridiens;
+}
+
+function getPathologieOfEachLi(ulElement){
+    let tabPathologies = [];
+    for(elem of document.getElementsByClassName("master")){
+        tabPathologies.push(elem.lastChild.textContent.split('|')[0].slice(0, -1));
+    }
+    return tabPathologies;
+}

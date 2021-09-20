@@ -39,10 +39,9 @@
         {% endfor %}
     </ul>
 
-    <div onchange="filter(event)" class="row">
+    <div onchange="filter()" class="row">
         <div class="input-field col s2 offset-m2">
-            <select id="crit-meridien" searchable="Type name">
-                <option value="" disabled selected>Choose your option</option>
+            <select id="crit-meridien" multiple searchable="Type name">
                 {% set i = 1 %}
                 {% for meridien in meridiens %}
                     <option value={{ i }}>{{ meridien.nom }}</option>
@@ -53,11 +52,10 @@
         </div>
 
         <div class="input-field col s2">
-            <select id="crit-type-path" searchable="Type description">
-                <option value="" disabled selected>Choose your option</option>
+            <select id="crit-type-path" multiple searchable="Type description">
                 {% set i = 1 %}
                 {% for pathologie in pathologies %}
-                    <option value={{ i }}>{{ pathologie.desc }}</option>
+                    <option value={{ i }}>{{ pathologie.desc|capitalize }}</option>
                     {% set i = i + 1 %}
                 {% endfor %}
             </select>
@@ -65,11 +63,10 @@
         </div>
 
         <div class="input-field col s2 ">
-            <select id="crit-carac" searchable="Type name">
-                <option value="" disabled selected>Choose your option</option>
+            <select id="crit-carac" multiple searchable="Type name">
                 {% set i = 1 %}
                 {% for keyword in keywords %}
-                    <option value={{ i }}>{{ keyword.name }}</option>
+                    <option value={{ i }}>{{ keyword.name|capitalize }}</option>
                     {% set i = i + 1 %}
                 {% endfor %}
             </select>

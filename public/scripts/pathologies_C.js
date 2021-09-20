@@ -51,47 +51,99 @@ document.addEventListener('DOMContentLoaded', event => {
 
 // Filter
 
-function filter(event){
-    let select = event.target, tab = document.getElementsByClassName("collapsible-master")[0];
+function filter(){
+    let tabElementsToDisplay = {}, result = false;
+    document.querySelectorAll("select").forEach(select => {
+        let indexOfSelectedItems = M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues(), selectedItems = [];
+        for (index of indexOfSelectedItems){
+            selectedItems.push(select[index-1].innerHTML);
+        }        
+        tabElementsToDisplay[select.id] = getElementsToDisplay(selectedItems, select.id);
+    });
 
-    switch(select.id){
-        case 'crit-meridien':
-            let selectedMeridien = select[select.value].innerHTML;
-            console.log(getMeridienOfEachLi(tab));
-            break;
-        case 'crit-type-path':
-            let selectedPathologie = select[select.value].innerHTML;
-            console.log(getPathologieOfEachLi(tab));
-            break;
-        case 'crit-carac':
-            let selectedKeyword = select[select.value].innerHTML;
-            break;
-        case 'symptomes':
-            let indexOfSelectedSymptomes = M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues(), selectedSymptomes = [];
-            for (index of indexOfSelectedSymptomes){
-                selectedSymptomes.push(select[index-1].innerHTML);
+    voidDisplay();
+
+    for (stuff in tabElementsToDisplay){
+        for (elem of tabElementsToDisplay[stuff]){
+            elem.style.display = "";
+            result = true;
+        }
+    }
+
+    if (!result){
+        resetDisplay();
+    }
+}
+
+// Check functions for filter
+
+function displayElems(selectedElements, criteria){
+    for (elemToDisplay of getElementsToDisplay(selectedElements, criteria)){
+        elemToDisplay.style.display = "";
+    }
+}
+
+function checkKeywordOfEachLi(selectedKeyword){
+    for(elem of document.getElementsByClassName("master")){
+        if (elem.style.display === ""){
+            let found = false;
+            for (elemBis of elem.nextSibling.nextSibling.getElementsByClassName("slave")){
+                for (elemThird of elemBis.nextSibling.parentElement.getElementsByTagName("li")){
+                    if (selectedKeyword === elemThird.innerHTML){
+                        found = true;
+                    }else if (selectedKeyword !== elemThird.innerHTML && !found){
+                        found = false;
+                    }
+                }
+                if (!found){
+                    elem.style.display = "None";
+                }else{
+                    elem.style.display = "";
+                }
             }
-            break;
-        default:
-            break;
+        }
     }
 }
 
-// Helpers for filter function (EN FAIT c'est ici qu'il faut que je check des trucs. Genre si dans mon elem, le texte du meridien != du selectedmeridien
-// ALORS je vire l'élement en quesiton (instance.destroy() ?))
+// Helpers for filter
 
-function getMeridienOfEachLi(ulElement){
-    let tabMeridiens = [];
-    for(elem of document.getElementsByClassName("master")){
-        tabMeridiens.push(elem.lastChild.textContent.split('|')[1].slice(1));
+function getElementsToDisplay(tabElements, criteria){
+    let tabElementsToDisplay = [];
+
+    for (element of tabElements){
+        for(elem of document.getElementsByClassName("master")){
+            if (criteria === "crit-meridien"){
+                if (element === elem.lastChild.textContent.split('|')[1].slice(1)){
+                    tabElementsToDisplay.push(elem);
+                }
+            }else if (criteria === "crit-type-path"){
+                if (element === elem.lastChild.textContent.split('|')[0].slice(0, -1)){
+                    tabElementsToDisplay.push(elem);
+                }
+            }
+        }
     }
-    return tabMeridiens;
+    return tabElementsToDisplay;
 }
 
-function getPathologieOfEachLi(ulElement){
-    let tabPathologies = [];
+function getElementsDisplayed(){
+    tabElementsDisplayed = [];
     for(elem of document.getElementsByClassName("master")){
-        tabPathologies.push(elem.lastChild.textContent.split('|')[0].slice(0, -1));
+        if (elem.style.display === ""){
+            tabElementsDisplayed.push(elem);
+        }
     }
-    return tabPathologies;
+    return tabElementsDisplayed;
+}
+
+function resetDisplay(){
+    for(elem of document.getElementsByClassName("master")){
+        elem.style.display = "";
+    }
+}
+
+function voidDisplay(){
+    for(elem of document.getElementsByClassName("master")){
+        elem.style.display = "None";
+    }
 }

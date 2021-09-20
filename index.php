@@ -1,8 +1,5 @@
 <?php
 
-header('Access-Control-Allow-Origin');
-header('Content-type: application/json');
-
 require_once 'vendor/autoload.php';
 require_once 'router/Router.php';
 require_once 'router/Route.php';
@@ -17,6 +14,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $router = new Router($_GET['url']);
 
 // Routing
+
+// Site
 require_once 'router/routers/MainController.php';
 $mainController = (new MainController())->routing($router);
 require_once 'router/routers/PathologiesMotsClefsController.php';
@@ -25,9 +24,17 @@ require_once 'router/routers/PathologiesCriteresController.php';
 $pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
 require_once 'router/routers/PathologiesCriteresController.php';
 $pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
-require_once 'router/routers/ApiController.php';
-$apiController = (new ApiController())->routing($router);
+// Api
+require_once 'router/routers/Api/KeywordController.php';
+$apiController = (new KeywordController())->routing($router);
+require_once 'router/routers/Api/MeridienController.php';
+$apiController = (new MeridienController())->routing($router);
+require_once 'router/routers/Api/PathologieController.php';
+$apiController = (new PathologieController())->routing($router);
+require_once 'router/routers/Api/SymptomeController.php';
+$apiController = (new SymptomeController())->routing($router);
+require_once 'router/routers/Api/UserController.php';
+$apiController = (new UserController())->routing($router);
 
 // Run routing
 $router->run();
-?>

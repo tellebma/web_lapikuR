@@ -2,22 +2,36 @@
 
 {% block head %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="public/scripts/pathologies_C.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="public/styles/pathologies_C.css"/>
 {% endblock %}
 
 {% block content %}
-    <ul class="collapsible">
-        {% for pathologie in pathologies %}
+    <ul class="collapsible collapsible-master">
+        {% for item in symptomesByPathologie %}
             <li>
-                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ pathologie.desc }}</div>
+                <div class="collapsible-header master"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }} | {{ item.mer }}</div>
                 <div class="collapsible-body">
                     <ul>
-                        {% for symptome in symptomes %}
-                            {% if pathologie.idP == symptome.idP %}
-                                <li>{{ symptome.desc }}</li>
-                            {% endif %}
+                        {% for symptome in item.symptomes %}
+                            <ul class="collapsible collapsible-slave">
+                                <li>
+                                    <div class="collapsible-header slave"><i class="material-icons">transfer_within_a_station</i>{{ symptome.desc }}</div>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            {% for itemBis in keywordsBySymptome %}
+                                                {% if itemBis.idS == symptome.idS %}
+                                                    {% for keyword in itemBis.keywords %}
+                                                        <li>{{ keyword.name|capitalize }}</li>
+                                                    {% endfor %} 
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
                         {% endfor %}
                     </ul>
                 </div>
@@ -26,60 +40,60 @@
     </ul>
 
     <div class="row">
-        <div id="crit-meridien">
-            <div class="input-field col s2 offset-m2">
-                <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Meridien</label>
-            </div>
+        <div class="input-field col s2 offset-m2">
+            <select id="critmeridien" multiple searchable="Type name">
+                {% set i = 1 %}
+                {% for meridien in meridiens %}
+                    <option value={{ i }}>{{ meridien.nom }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Meridien</label>
         </div>
 
-        <div id="crit-type-path">
-            <div class="input-field col s2">
-                <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Type de pathologie</label>
-            </div>
+        <div class="input-field col s2">
+            <select id="critpath" multiple searchable="Type description">
+                {% set i = 1 %}
+                {% for pathologie in pathologies %}
+                    <option value={{ i }}>{{ pathologie.desc|capitalize }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Type de pathologie</label>
         </div>
 
-        <div id="crit-carac">
-            <div class="input-field col s2 ">
-                <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Caractéristique</label>
-            </div>
+        <div class="input-field col s2 ">
+            <select id="critcarac" multiple searchable="Type name">
+                {% set i = 1 %}
+                {% for keyword in keywords %}
+                    <option value={{ i }}>{{ keyword.name|capitalize }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Caractéristique</label>
         </div>
 
-        <div id="symptome">
-            <div class="input-field col s2">
-                <select multiple>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                <label>Symptômes</label>
-            </div>
+        <div class="input-field col s2">
+            <select id="critsymptome" multiple searchable="Type description">
+                {% set i = 1 %}
+                {% for symptome in symptomes %}
+                    <option value={{ i }}>{{ symptome.desc }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Symptômes</label>
         </div>
+    </div>
+
+    <div class="center">
+        <button onclick="postCriterias()" class="btn waves-effect waves-light" type="submit">Submit
+            <i class="material-icons right">send</i>
+        </button>
     </div>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('select').material_select();
-        });
-        $(document).onload(function(){
+            $('select').formSelect();
             $('.collapsible').collapsible();
         });
     </script>

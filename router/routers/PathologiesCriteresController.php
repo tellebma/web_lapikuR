@@ -2,15 +2,32 @@
 
 require_once 'services/DataBaseService.php';
 
-class PathologiesCriteresController { // FAUT FAIRE FETCHALL PARCE QUE CE FDP DE QUERY RENVOIE UN PDOSTATEMENT ET ON PEUT ITERER QUE UNE FOIS DESSUS SAMERE
+require_once 'services/Api/PathologieServices.php';
+
+class PathologiesCriteresController {
     function routing($router){
         $router->get('/pathologies_C', function(){
-            $symptomes = (new DataBaseService())->query(("SELECT symptPatho.idP, symptome.desc FROM patho JOIN symptPatho ON patho.idP = symptPatho.idP JOIN symptome ON symptPatho.idS = symptome.idS"));
-            //var_dump($symptomes->fetchAll());
-            echo $GLOBALS['twig']->render('pathologies_C.twig', ['pathologies' => ((Object)new DataBaseService())->query(("SELECT * FROM patho"))->fetchAll(),
-                                                                'symptomes' => ((Object)new DataBaseService())->query(("SELECT symptPatho.idP, symptome.desc FROM patho JOIN symptPatho ON patho.idP = symptPatho.idP JOIN symptome ON symptPatho.idS = symptome.idS"))->fetchAll()]);
-        });      
-    }
+            echo $GLOBALS['twig']->render('pathologies_C.twig', [
+                                                        'meridiens' => (new MeridienServices())->listAll(),
+                                                        'pathologies' => (new PathologieServices())->listAll(),
+                                                        'keywords' => (new KeywordServices())->listAll(),
+                                                        'symptomes' => (new SymptomeServices())->listAll()
+                                                    ]);
+        });   
+        
+        $router->get('/pathologies_C/:meridiens-:pathologies-:keywords-:symptomes', function($meridiens, $pathologies, $keywords, $symptomes){
+            echo $meridiens;
+            echo $pathologies;
+            echo $keywords;
+            echo $symptomes;
+            echo $GLOBALS['twig']->render('pathologies_C.twig', [
+                                                        'meridiens' => (new MeridienServices())->listAll(),
+                                                        'pathologies' => (new PathologieServices())->listAll(),
+                                                        'keywords' => (new KeywordServices())->listAll(),
+                                                        'symptomes' => (new SymptomeServices())->listAll()
+                                                    ]);
+        }); 
+    } 
 }
 
 ?>

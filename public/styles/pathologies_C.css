@@ -1,7 +1,11 @@
-.collapsible {
+.collapsible-master {
     margin: 2vh auto;
     margin-bottom: 8vh;
     overflow: scroll;
     height: 65vh;
     width: 80vw;
+}
+
+.dropdown-content > li > span{ 
+    display: inline-block;
 }

@@ -49,101 +49,31 @@ document.addEventListener('DOMContentLoaded', event => {
     });
 });
 
-// Filter
+// Submit button
 
-function filter(){
-    let tabElementsToDisplay = {}, result = false;
+function postCriterias(){
+    let elementsSelected = getElementsSelected(), stringHref = "";
+    for (tabCriteria in elementsSelected){
+        stringHref += tabCriteria + "=";
+        for (elem of elementsSelected[tabCriteria]){
+            if (elem === elementsSelected[tabCriteria].at(-1)){
+                stringHref += elem.replace(/ /g,"_") + "-";
+            }else{
+                stringHref += elem.replace(/ /g,"_") + "+";
+            }
+        }
+    }
+    location.href="pathologies_C/" + stringHref; // REFAIRE DES TESTS AU NIVEAU DE LA GUEULE DE L URL EN FAIT J ETAIS JUSTE CON
+}
+
+function getElementsSelected(){
+    let tabElementsToDisplay = {};
     document.querySelectorAll("select").forEach(select => {
         let indexOfSelectedItems = M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues(), selectedItems = [];
         for (index of indexOfSelectedItems){
             selectedItems.push(select[index-1].innerHTML);
         }        
-        tabElementsToDisplay[select.id] = getElementsToDisplay(selectedItems, select.id);
+        tabElementsToDisplay[select.id] = selectedItems;
     });
-
-    voidDisplay();
-
-    for (stuff in tabElementsToDisplay){
-        for (elem of tabElementsToDisplay[stuff]){
-            elem.style.display = "";
-            result = true;
-        }
-    }
-
-    if (!result){
-        resetDisplay();
-    }
-}
-
-// Check functions for filter
-
-function displayElems(selectedElements, criteria){
-    for (elemToDisplay of getElementsToDisplay(selectedElements, criteria)){
-        elemToDisplay.style.display = "";
-    }
-}
-
-function checkKeywordOfEachLi(selectedKeyword){
-    for(elem of document.getElementsByClassName("master")){
-        if (elem.style.display === ""){
-            let found = false;
-            for (elemBis of elem.nextSibling.nextSibling.getElementsByClassName("slave")){
-                for (elemThird of elemBis.nextSibling.parentElement.getElementsByTagName("li")){
-                    if (selectedKeyword === elemThird.innerHTML){
-                        found = true;
-                    }else if (selectedKeyword !== elemThird.innerHTML && !found){
-                        found = false;
-                    }
-                }
-                if (!found){
-                    elem.style.display = "None";
-                }else{
-                    elem.style.display = "";
-                }
-            }
-        }
-    }
-}
-
-// Helpers for filter
-
-function getElementsToDisplay(tabElements, criteria){
-    let tabElementsToDisplay = [];
-
-    for (element of tabElements){
-        for(elem of document.getElementsByClassName("master")){
-            if (criteria === "crit-meridien"){
-                if (element === elem.lastChild.textContent.split('|')[1].slice(1)){
-                    tabElementsToDisplay.push(elem);
-                }
-            }else if (criteria === "crit-type-path"){
-                if (element === elem.lastChild.textContent.split('|')[0].slice(0, -1)){
-                    tabElementsToDisplay.push(elem);
-                }
-            }
-        }
-    }
     return tabElementsToDisplay;
-}
-
-function getElementsDisplayed(){
-    tabElementsDisplayed = [];
-    for(elem of document.getElementsByClassName("master")){
-        if (elem.style.display === ""){
-            tabElementsDisplayed.push(elem);
-        }
-    }
-    return tabElementsDisplayed;
-}
-
-function resetDisplay(){
-    for(elem of document.getElementsByClassName("master")){
-        elem.style.display = "";
-    }
-}
-
-function voidDisplay(){
-    for(elem of document.getElementsByClassName("master")){
-        elem.style.display = "None";
-    }
 }

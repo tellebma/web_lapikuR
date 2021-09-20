@@ -39,9 +39,9 @@
         {% endfor %}
     </ul>
 
-    <div onchange="filter()" class="row">
+    <div class="row">
         <div class="input-field col s2 offset-m2">
-            <select id="crit-meridien" multiple searchable="Type name">
+            <select id="critmeridien" multiple searchable="Type name">
                 {% set i = 1 %}
                 {% for meridien in meridiens %}
                     <option value={{ i }}>{{ meridien.nom }}</option>
@@ -52,7 +52,7 @@
         </div>
 
         <div class="input-field col s2">
-            <select id="crit-type-path" multiple searchable="Type description">
+            <select id="critpath" multiple searchable="Type description">
                 {% set i = 1 %}
                 {% for pathologie in pathologies %}
                     <option value={{ i }}>{{ pathologie.desc|capitalize }}</option>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="input-field col s2 ">
-            <select id="crit-carac" multiple searchable="Type name">
+            <select id="critcarac" multiple searchable="Type name">
                 {% set i = 1 %}
                 {% for keyword in keywords %}
                     <option value={{ i }}>{{ keyword.name|capitalize }}</option>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="input-field col s2">
-            <select id="symptomes" multiple searchable="Type description">
+            <select id="critsymptome" multiple searchable="Type description">
                 {% set i = 1 %}
                 {% for symptome in symptomes %}
                     <option value={{ i }}>{{ symptome.desc }}</option>
@@ -83,6 +83,12 @@
             </select>
             <label>Symptômes</label>
         </div>
+    </div>
+
+    <div class="center">
+        <button onclick="postCriterias()" class="btn waves-effect waves-light" type="submit">Submit
+            <i class="material-icons right">send</i>
+        </button>
     </div>
 
     <script type="text/javascript">

@@ -10,14 +10,22 @@ class PathologieHelpers{
     }
 
     function formatString($criteria, $array, $strToAdd){
+        $isFirst = true;
         foreach($array as $elem){
             if ($elem == 'all'){
                 $strToAdd.= $criteria . " = " . $criteria . " AND ";
             }else{
-                if ($elem === end($array)){
-                    $strToAdd .= $criteria . " = '" . $elem . "' AND ";
+                if (count($array)===1){
+                    $strToAdd .= $criteria . " = \"" . $elem . "\" AND ";
+                }
+                else if ($isFirst){
+                    $strToAdd .= "(" . $criteria . " = \"" . $elem . "\" OR ";
+                    $isFirst = False;
+                }
+                else if ($elem === end($array)){
+                    $strToAdd .= $criteria . " = \"" . $elem . "\") AND ";
                 }else{
-                    $strToAdd .= $criteria . " = '" . $elem . "' OR ";
+                    $strToAdd .= $criteria . " = \"" . $elem . "\" OR ";
                 }
                 
             }

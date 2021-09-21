@@ -9,18 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    <ul class="collapsible">
+
+    <ul class="collection">
         {% for item in dataToDisplay %}
-            <li>
-                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
-                <div class="collapsible-body">
-                    <ul>
-                        {% for symptome in item.symptomes %}
-                            <li>{{ symptome.desc }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </li>
+            <li class="collection-item">{{ item.desc|capitalize }}</li>
         {% endfor %}
     </ul>
 

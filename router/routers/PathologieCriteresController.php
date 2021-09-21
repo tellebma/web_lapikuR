@@ -13,6 +13,7 @@ class PathologieCriteresController {
     function routing($router){
         $router->get('/pathologies_C', function(){
             echo $GLOBALS['twig']->render('pathologies_C.twig', [
+                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay("all", "all", "all", "all"),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
                                                         'keywords' => (new KeywordServices())->listAll(),

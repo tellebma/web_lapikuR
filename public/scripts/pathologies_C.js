@@ -68,7 +68,7 @@ function postCriterias(){
         }
         
     }
-    location.href += "/" + (stringHref).slice(0, -1); // Faut que jme demerde pour avoir le bon url, plus le css marche pas ça commence a me peter les couilles
+    document.location = "/pathologies_C/" + (stringHref).slice(0, -1);
 }
 
 function getElementsSelected(){

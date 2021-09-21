@@ -55,15 +55,20 @@ function postCriterias(){
     let elementsSelected = getElementsSelected(), stringHref = "";
     for (tabCriteria in elementsSelected){
         stringHref += tabCriteria + "=";
-        for (elem of elementsSelected[tabCriteria]){
-            if (elem === elementsSelected[tabCriteria].at(-1)){
-                stringHref += elem.replace(/ /g,"_") + "-";
-            }else{
-                stringHref += elem.replace(/ /g,"_") + "+";
+        if (elementsSelected[tabCriteria].length === 0){
+            stringHref += "all-";
+        }else{
+            for (elem of elementsSelected[tabCriteria]){
+                if (elem === elementsSelected[tabCriteria].at(-1)){
+                    stringHref += elem.replace(/ /g,"_") + "-";
+                }else{
+                    stringHref += elem.replace(/ /g,"_") + ".";
+                }
             }
         }
+        
     }
-    location.href="pathologies_C/" + stringHref; // REFAIRE DES TESTS AU NIVEAU DE LA GUEULE DE L URL EN FAIT J ETAIS JUSTE CON
+    location.href=("pathologies_C/" + stringHref).slice(0, -1);
 }
 
 function getElementsSelected(){

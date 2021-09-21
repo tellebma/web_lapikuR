@@ -1,12 +1,12 @@
 <?php
 
-require_once 'services/DataBaseService.php';
+require_once 'services/DataBaseServices.php';
 
 class SymptomeServices{
     private $_db;
 
     function __construct(){
-        $this->_db = (new DataBaseService())->connect();
+        $this->_db = (new DataBaseServices())->connect();
     }
 
     function listAll(){

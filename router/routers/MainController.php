@@ -1,6 +1,6 @@
 <?php
 
-require_once 'services/UserManagementService.php';
+require_once 'services/UserManagementServices.php';
 
 class MainController {
     function routing($router){
@@ -15,7 +15,7 @@ class MainController {
          * Gets data from a form, connects to db and check credentials.
          */
         $router->post('/login', function(){
-            $usrManagement = (new UserManagementService());
+            $usrManagement = (new UserManagementServices());
             $name = $_POST["name"];
             $pass = $_POST["pass"];
             if ($usrManagement->passVerify($name, $pass)){
@@ -40,7 +40,7 @@ class MainController {
          * Gets data from a form, stores it into the db.
          */
         $router->post('/register', function(){
-            (new UserManagementService())->register($_POST["name"], $_POST["pass"], $_POST["mail"]);
+            (new UserManagementServices())->register($_POST["name"], $_POST["pass"], $_POST["mail"]);
         });
     }
 }

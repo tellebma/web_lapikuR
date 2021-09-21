@@ -1,10 +1,15 @@
 <?php
 
-require_once 'services/DataBaseService.php';
+require_once 'services/DataBaseServices.php';
 
+require_once 'services/PathologieCriteresServices.php';
 require_once 'services/Api/PathologieServices.php';
+require_once 'services/Api/MeridienServices.php';
+require_once 'services/Api/KeywordServices.php';
+require_once 'services/Api/SymptomeServices.php';
 
-class PathologiesCriteresController {
+
+class PathologieCriteresController {
     function routing($router){
         $router->get('/pathologies_C', function(){
             echo $GLOBALS['twig']->render('pathologies_C.twig', [
@@ -15,12 +20,9 @@ class PathologiesCriteresController {
                                                     ]);
         });   
         
-        $router->get('/pathologies_C/:meridiens-:pathologies-:keywords-:symptomes', function($meridiens, $pathologies, $keywords, $symptomes){
-            echo $meridiens;
-            echo $pathologies;
-            echo $keywords;
-            echo $symptomes;
+        $router->get('/pathologies_C/critmer=:meridiens-critpath=:pathologies-critcarac=:keywords-critsympt=:symptomes', function($meridiens, $pathologies, $keywords, $symptomes){
             echo $GLOBALS['twig']->render('pathologies_C.twig', [
+                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay($meridiens, $pathologies, $keywords, $symptomes),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
                                                         'keywords' => (new KeywordServices())->listAll(),

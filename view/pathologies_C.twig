@@ -9,29 +9,14 @@
 {% endblock %}
 
 {% block content %}
-    <ul class="collapsible collapsible-master">
-        {% for item in symptomesByPathologie %}
+    <ul class="collapsible">
+        {% for item in dataToDisplay %}
             <li>
-                <div class="collapsible-header master"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }} | {{ item.mer }}</div>
+                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
                 <div class="collapsible-body">
                     <ul>
                         {% for symptome in item.symptomes %}
-                            <ul class="collapsible collapsible-slave">
-                                <li>
-                                    <div class="collapsible-header slave"><i class="material-icons">transfer_within_a_station</i>{{ symptome.desc }}</div>
-                                    <div class="collapsible-body">
-                                        <ul>
-                                            {% for itemBis in keywordsBySymptome %}
-                                                {% if itemBis.idS == symptome.idS %}
-                                                    {% for keyword in itemBis.keywords %}
-                                                        <li>{{ keyword.name|capitalize }}</li>
-                                                    {% endfor %} 
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
+                            <li>{{ symptome.desc }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -41,7 +26,7 @@
 
     <div class="row">
         <div class="input-field col s2 offset-m2">
-            <select id="critmeridien" multiple searchable="Type name">
+            <select id="critmer" multiple searchable="Type name">
                 {% set i = 1 %}
                 {% for meridien in meridiens %}
                     <option value={{ i }}>{{ meridien.nom }}</option>
@@ -74,7 +59,7 @@
         </div>
 
         <div class="input-field col s2">
-            <select id="critsymptome" multiple searchable="Type description">
+            <select id="critsympt" multiple searchable="Type description">
                 {% set i = 1 %}
                 {% for symptome in symptomes %}
                     <option value={{ i }}>{{ symptome.desc }}</option>

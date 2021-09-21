@@ -2,7 +2,7 @@
 
 require_once 'helpers/ApiHelpers.php';
 
-require_once 'services/DataBaseService.php';
+require_once 'services/DataBaseServices.php';
 require_once 'services/Api/MeridienServices.php';
 
 class MeridienController{

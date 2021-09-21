@@ -2,7 +2,7 @@
 
 // Pour que ça fonctionne -> Faut faire un $db = new DatabaseServices(); partout ou y a vait des call de db avant, et apres refaire la mêmer equete avec $db a la place de (new DAtabaseServices())
 
-class DataBaseService {
+class DataBaseServices{
     private $_dbName;
     private $_dbHost;
     private $_dbLogin;

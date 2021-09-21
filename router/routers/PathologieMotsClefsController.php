@@ -1,11 +1,15 @@
 <?php
 
+require_once 'services/Api/PathologieServices.php';
+
 class PathologieMotsClefsController {
     function routing($router){
-        $router->get('/pathologies_MC', function(){
-            echo $GLOBALS['twig']->render('pathologies_MC.twig');
-        });
-           
+        $router->get('/pathologiePrincipales', function(){
+            echo $GLOBALS['twig']->render('pathologiePrincipales.twig', [
+                                                        'symptomesByPathologie' => (new PathologieServices())->getSymptomesByPathologie(),
+                                                        'pathologies' => (new PathologieServices())->listAll()
+                                                    ]);
+        });         
     }
 }
 

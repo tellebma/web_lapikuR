@@ -68,7 +68,7 @@ function postCriterias(){
         }
         
     }
-    document.location = "/pathologies_C/" + (stringHref).slice(0, -1);
+    document.location = "/pathologieCriteres/" + (stringHref).slice(0, -1);
 }
 
 function getElementsSelected(){

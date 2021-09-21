@@ -11,9 +11,9 @@ require_once 'services/Api/SymptomeServices.php';
 
 class PathologieCriteresController {
     function routing($router){
-        $router->get('/pathologies_C', function(){
-            echo $GLOBALS['twig']->render('pathologies_C.twig', [
-                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay("all", "all", "all", "all"),
+        $router->get('/pathologieCriteres', function(){
+            echo $GLOBALS['twig']->render('pathologieCriteres.twig', [
+                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay("all", "all", "all"),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
                                                         'keywords' => (new KeywordServices())->listAll(),
@@ -21,9 +21,9 @@ class PathologieCriteresController {
                                                     ]);
         });   
         
-        $router->get('/pathologies_C/critmer=:meridiens-critpath=:pathologies-critcarac=:keywords-critsympt=:symptomes', function($meridiens, $pathologies, $keywords, $symptomes){
-            echo $GLOBALS['twig']->render('pathologies_C.twig', [
-                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay($meridiens, $pathologies, $keywords, $symptomes),
+        $router->get('/pathologieCriteres/critmer=:meridiens-critpath=:pathologies-critcarac=:keywords', function($meridiens, $pathologies, $keywords){
+            echo $GLOBALS['twig']->render('pathologieCriteres.twig', [
+                                                        'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay($meridiens, $pathologies, $keywords),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
                                                         'keywords' => (new KeywordServices())->listAll(),

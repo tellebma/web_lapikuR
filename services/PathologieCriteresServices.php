@@ -7,7 +7,7 @@ class PathologieCriteresServices{
         $this->_db = (new DataBaseServices())->connect();
     }
 
-    function getDataToDisplay($meridiens, $pathologies, $keywords, $symptomes){
+    function getDataToDisplay($meridiens, $pathologies, $keywords){
         $i = 0;
         $whereString = "";
 
@@ -17,44 +17,13 @@ class PathologieCriteresServices{
             $i++;
         }
 
-        $res = ($this->_db)->query("SELECT DISTINCT patho.idP AS pidP, patho.desc AS pdesc, symptPatho.idP AS spidP, symptome.idS as sidS, symptome.desc as sdesc FROM patho 
-                                    JOIN symptPatho ON patho.idP = symptPatho.idP 
-                                    JOIN symptome ON symptPatho.idS = symptome.idS 
-                                    JOIN meridien ON patho.mer = meridien.code
+        return(($this->_db)->query("SELECT DISTINCT patho.desc, patho.idP FROM patho 
+                                    JOIN meridien ON patho.mer = meridien.code 
+                                    JOIN symptPatho ON symptPatho.idP = patho.idP
+                                    JOIN symptome ON symptome.idS = symptPatho.idS
                                     JOIN keySympt ON symptome.idS = keySympt.idS
-                                    JOIN keywords ON keySympt.idK = keywords.idK
-                                    WHERE "
-                                    .
-                                    substr($whereString, 0, -6)
-                                    . 
-                                    " ORDER BY patho.idP");
-
-        $i = 0;
-        $j = 0;
-        $lastpidP = null;
-        $array = null;
-        while ($row = $res->fetch(PDO::FETCH_ASSOC)){
-            if ($row['pidP'] != $lastpidP){
-                $j=0;
-                $array[$i] = array(
-                    "desc" => $row['pdesc'],
-                    "idP" => $row['pidP'],
-                    "symptomes" => array(
-                        $j => array(
-                            "idS" => $row['sidS'],
-                            "desc" => $row['sdesc']
-                        )
-                    )
-                );
-                $j++;
-                $i++;
-            }else{
-                array_push($array[$i-1]['symptomes'], array("idS" => $row['sidS'], "desc" => $row['sdesc']));
-
-            }
-            $lastpidP = $row['pidP'];
-        }
-        return($array);
-}
+                                    JOIN keywords ON keySympt.idK = keywords.idK 
+                                    WHERE " . substr($whereString, 0, -6) . " ORDER BY patho.idP")->fetchAll(PDO::FETCH_ASSOC));
+    }
 } 
 ?>

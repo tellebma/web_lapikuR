@@ -8,31 +8,19 @@ require_once 'services/Api/UserServices.php';
 class UserController{
     function routing($router){
         /**
-         * Get pathologies
+         * Get users
          */
-        $router->get('/api/pathologies', function(){
+        $router->get('/api/user/all', function(){
             (new ApiHelpers())->setHeaders();
+            echo json_encode((new UserServices())->listAll());
         });
 
         /**
-         * Get meridiens
+         * Get user thanks to it's id
          */
-        $router->get('/api/meridiens', function(){
-            // TODO
-        });
-
-        /**
-         * Get keywords
-         */
-        $router->get('/api/keywords', function(){
-            // TODO
-        });
-
-        /**
-         * Get symptomes
-         */
-        $router->get('/api/symptomes', function(){
-            // TODO
+        $router->get('/api/user/:id', function($id){
+            (new ApiHelpers())->setHeaders();
+            echo json_encode((new UserServices())->getById($id));
         });
     }
 }

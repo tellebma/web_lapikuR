@@ -8,31 +8,19 @@ require_once 'services/Api/KeywordServices.php';
 class KeywordController{
     function routing($router){
         /**
-         * Get pathologies
-         */
-        $router->get('/api/pathologies', function(){
-            (new ApiHelpers())->setHeaders();
-        });
-
-        /**
-         * Get meridiens
-         */
-        $router->get('/api/meridiens', function(){
-            // TODO
-        });
-
-        /**
          * Get keywords
          */
-        $router->get('/api/keywords', function(){
-            // TODO
+        $router->get('/api/keyword/all', function(){
+            (new ApiHelpers())->setHeaders();
+            echo json_encode((new KeywordServices())->listAll());
         });
 
         /**
-         * Get symptomes
+         * Get a keyword thanks to it's id
          */
-        $router->get('/api/symptomes', function(){
-            // TODO
+        $router->get('/api/keyword/:idOrName', function($idOrName){
+            (new ApiHelpers())->setHeaders();
+            echo json_encode((new KeywordServices())->getById($idOrName));
         });
     }
 }

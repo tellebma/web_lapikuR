@@ -5,10 +5,21 @@ require_once 'services/DataBaseServices.php';
 require_once 'helpers/PathologieHelpers.php';
 
 class PathologieSymptomesServices{
+    /**
+     * Connection to the database
+     */
     function __construct(){
         $this->_db = (new DataBaseServices())->connect();
     }
 
+    /**
+     * Gets data that should be displayed on the pathologieCriteres.twig page by storing all
+     * elements selected by the client in an array and passing it to a function (getWhereString(...))
+     * that will generate a string that will be concatenated to a MySQL query
+     * 
+     * @param String $symptomes, String containing all symptomes selected by the client
+     * @return Array, An array with all the resuts of the given query
+     */
     function getDataToDisplay($symptomes){
         $whereString = "";
 

@@ -49,8 +49,11 @@ document.addEventListener('DOMContentLoaded', event => {
     });
 });
 
-// Submit button
+// Submit button. I would have preferred using POST requests but this way it's accessible by URL.
 
+/**
+ * Forges an URL depending on the elements selected by the client
+ */
 function postCriterias(){
     let elementsSelected = getElementsSelected(), stringHref = "";
     for (tabCriteria in elementsSelected){
@@ -71,6 +74,10 @@ function postCriterias(){
     document.location = "/pathologieCriteres/" + (stringHref).slice(0, -1);
 }
 
+/**
+ * Loops through all selects in the page, and adds all selected elements to a Json Object
+ * @returns A Json Object with all selected elements gated behind a key corresponding to one select.
+ */
 function getElementsSelected(){
     let tabElementsToDisplay = {};
     document.querySelectorAll("select").forEach(select => {

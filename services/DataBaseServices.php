@@ -24,6 +24,11 @@ class DataBaseServices{
         $this->_dbPass = "password";
     }
 
+    /**
+     * Connection to the database
+     * 
+     * @return Object Represents the connection to the database
+     */
     function connect(){
         $this->_pdo = new PDO('mysql:dbname=' . $this->_dbName . ';host=' . $this->_dbHost, $this->_dbLogin, $this->_dbPass);
         $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

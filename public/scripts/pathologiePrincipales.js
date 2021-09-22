@@ -49,8 +49,15 @@ document.addEventListener('DOMContentLoaded', event => {
         });
 });
 
-// Filter
+// Filter. Really bad way to do it ? Maybe use my API to get the data I want to display.
 
+/**
+ * Everytime an event is generated (everytime the select list is used) gets all selected elements by the client, hides
+ * all the elements of the display div, gets all elements that correspond to the selected elements by the client, then
+ * shows those elements
+ * 
+ * @param {Event} event, Used to get the id of the element used, a select in this case.
+ */
 function filter(event){
         let tabSelectedItems = [], select = event.target, result = false;
         for (index of M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues()){
@@ -69,6 +76,12 @@ function filter(event){
         }
 }
 
+/**
+ * Gets all elements that should be displayed thanks to the items selected by the client
+ * 
+ * @param {Array} tabSelectedItems 
+ * @returns An array of all the DOM elements that match the items selected by the client
+ */
 function getElementsToDisplay(tabSelectedItems){
         let tabElementsToDisplay = [];
         for (item of tabSelectedItems){
@@ -81,12 +94,18 @@ function getElementsToDisplay(tabSelectedItems){
         return tabElementsToDisplay;
 }
 
+/**
+ * Sets the display style on all DOM elements with the classname "collapsible-header" to 'None'
+ */
 function voidDisplay(){
         for (elem of document.getElementsByClassName("collapsible-header")){
                 elem.style.display = "None";
         }
 }
 
+/**
+ * Sets the display style on all DOM elements with the classname "collapsible-header" to ''
+ */
 function resetDisplay(){
         for (elem of document.getElementsByClassName("collapsible-header")){
                 elem.style.display = "";

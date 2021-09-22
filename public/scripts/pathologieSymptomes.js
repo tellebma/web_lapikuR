@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', event => {
 
 // postSymptomes
 
+/**
+ * Forges an URL depending on the elements selected by the client
+ */
 function postSymptomes(){
     let tabElementsSelected = getElementsSelected(), stringHref = "";
     stringHref += "critsympt=";
@@ -68,6 +71,10 @@ function postSymptomes(){
     document.location = "/pathologieSymptomes/" + (stringHref).slice(0, -1);
 }
 
+/**
+ * Adds all selected elements to an Array
+ * @returns An Array with all selected elements gated behind a key corresponding to one select.
+ */
 function getElementsSelected(){
     let tabSelectedItems = [], select = document.getElementById("selectSympt");
     for (index of M.FormSelect.getInstance(select).getSelectedValues()){

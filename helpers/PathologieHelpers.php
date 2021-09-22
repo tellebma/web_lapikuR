@@ -45,6 +45,9 @@ class PathologieHelpers{
             case 2:
                 $newString = $this->formatString('keywords.name', $array, $newString);
                 break;
+            case 3:
+                $newString = $this->formatString('symptome.desc', $array, $newString);
+                break;
         }
         return $newString;
     }

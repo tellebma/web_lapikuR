@@ -2,7 +2,7 @@
 
 require_once 'services/Api/PathologieServices.php';
 
-class PathologieMotsClefsController {
+class PathologiePrincipalesController {
     function routing($router){
         $router->get('/pathologiePrincipales', function(){
             echo $GLOBALS['twig']->render('pathologiePrincipales.twig', [

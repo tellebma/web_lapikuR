@@ -1,5 +1,7 @@
 <?php
 
+require_once 'services/DataBaseServices.php';
+
 require_once 'helpers/PathologieHelpers.php';
 
 class PathologieCriteresServices{
@@ -26,4 +28,5 @@ class PathologieCriteresServices{
                                     WHERE " . substr($whereString, 0, -6) . " ORDER BY patho.idP")->fetchAll(PDO::FETCH_ASSOC));
     }
 } 
+
 ?>

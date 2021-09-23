@@ -18,12 +18,12 @@ $router = new Router($_GET['url']);
 // Site
 require_once 'router/routers/MainController.php';
 $mainController = (new MainController())->routing($router);
-require_once 'router/routers/PathologiesMotsClefsController.php';
-$pathologiesMotsClefsController = (new PathologiesMotsClefsController())->routing($router);
-require_once 'router/routers/PathologiesCriteresController.php';
-$pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
-require_once 'router/routers/PathologiesCriteresController.php';
-$pathologiesCriteresController = (new PathologiesCriteresController())->routing($router);
+require_once 'router/routers/PathologiePrincipalesController.php';
+$pathologiePrincipalesController = (new PathologiePrincipalesController())->routing($router);
+require_once 'router/routers/PathologieCriteresController.php';
+$pathologieCriteresController = (new PathologieCriteresController())->routing($router);
+require_once 'router/routers/PathologieSymptomesController.php';
+$pathologieSymptomesController = (new PathologieSymptomesController())->routing($router);
 // Api
 require_once 'router/routers/Api/KeywordController.php';
 $apiController = (new KeywordController())->routing($router);

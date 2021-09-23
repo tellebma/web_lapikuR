@@ -1,6 +1,6 @@
 <?php
 
-class UserManagementService {
+class UserManagementServices{
     function elementExist($row,$element){
         $result = (Object)(new DataBaseService())->query("SELECT * FROM `user` WHERE `".$row."` LIKE '".$element."';");
         if ($result->rowCount() > 0){

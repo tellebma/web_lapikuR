@@ -1,0 +1,65 @@
+{% extends 'layout.twig' %}
+
+{% block head %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/public/scripts/pathologieCriteres.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/public/styles/pathologieCriteres.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <ul class="collection">
+        {% for item in dataToDisplay %}
+            <li class="collection-item">{{ item.desc|capitalize }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="row">
+        <div class="input-field col s2 offset-m3">
+            <select id="critmer" multiple searchable="Type name">
+                {% set i = 1 %}
+                {% for meridien in meridiens %}
+                    <option value={{ i }}>{{ meridien.nom }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Meridien</label>
+        </div>
+
+        <div class="input-field col s2">
+            <select id="critpath" multiple searchable="Type description">
+                {% set i = 1 %}
+                {% for pathologie in pathologies %}
+                    <option value={{ i }}>{{ pathologie.desc|capitalize }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Type de pathologie</label>
+        </div>
+
+        <div class="input-field col s2 ">
+            <select id="critcarac" multiple searchable="Type name">
+                {% set i = 1 %}
+                {% for keyword in keywords %}
+                    <option value={{ i }}>{{ keyword.name|capitalize }}</option>
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </select>
+            <label>Caractéristique</label>
+        </div>
+    </div>
+
+    <div class="center">
+        <button onclick="postCriterias()" class="btn waves-effect waves-light" type="submit">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+{% endblock %}

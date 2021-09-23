@@ -2,7 +2,7 @@
 
 // Pour que ça fonctionne -> Faut faire un $db = new DatabaseServices(); partout ou y a vait des call de db avant, et apres refaire la mêmer equete avec $db a la place de (new DAtabaseServices())
 
-class DataBaseService {
+class DataBaseServices{
     private $_dbName;
     private $_dbHost;
     private $_dbLogin;
@@ -24,6 +24,11 @@ class DataBaseService {
         $this->_dbPass = "password";
     }
 
+    /**
+     * Connection to the database
+     * 
+     * @return Object Represents the connection to the database
+     */
     function connect(){
         $this->_pdo = new PDO('mysql:dbname=' . $this->_dbName . ';host=' . $this->_dbHost, $this->_dbLogin, $this->_dbPass);
         $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -1,34 +1,49 @@
 <?php
 
-require_once 'services/DataBaseService.php';
+require_once 'services/DataBaseServices.php';
 
 class PathologieServices{
     private $_db;
 
+    /**
+     * Connection to the database
+     */
     function __construct(){
-        $this->_db = (new DataBaseService())->connect();
+        $this->_db = (new DataBaseServices())->connect();
     }
 
+    /**
+     * Lists content of the patho table
+     */
     function listAll(){
         return(($this->_db)->query("SELECT * FROM patho")->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function getById(){
-
+    /**
+     * List a pathologie matching a given id
+     * 
+     * @param Int $id, Id of a specifig pathologie
+     */
+    function getById($id){
+        return(($this->_db)->query("SELECT * FROM patho
+                                    WHERE patho.idP = $id
+                                    ORDER BY patho.idP")->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function getByMeridient(){
-
+    /**
+     * Lists all pathologies with matchin meridien name instead of code
+     */
+    function getMeridienByPathologie(){
+        return(($this->_db)->query("SELECT patho.idP, patho.desc, meridien.nom FROM patho
+                                    JOIN meridien ON patho.mer = meridien.code
+                                    ORDER BY patho.idP")->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    function getByType(){
-
-    }
-
-    function getByDesc(){
-
-    }
-
+    /**
+     * Lists all symptomes for a given pathologie
+     * 
+     * @param Int $id, Id of a specifig pathologie
+     */
     function getSymptomesForPathologie($pathologieId){
         return(($this->_db)->query("SELECT * FROM patho 
                                     JOIN symptPatho ON patho.idP = symptPatho.idP
@@ -37,6 +52,9 @@ class PathologieServices{
                                     ORDER BY patho.idP")->fetchAll(PDO::FETCH_ASSOC));
     }
 
+    /**
+     * List all symptomes by pathologie
+    */
     function getSymptomesByPathologie(){
         $res = ($this->_db)->query("SELECT patho.idP AS pidP, patho.desc AS pdesc, patho.mer, patho.type, meridien.nom, symptPatho.idP AS spidP, symptome.idS as sidS, symptome.desc as sdesc  FROM patho 
                                     JOIN symptPatho ON patho.idP = symptPatho.idP 
@@ -47,7 +65,7 @@ class PathologieServices{
         $j = 0;
         $lastpidP = null;
         $array = null;
-        while ($row = $res->fetch(PDO::FETCH_ASSOC)){ // C'est comme ça pour parse les results
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)){
             if ($row['pidP'] != $lastpidP){
                 $j=0;
                 $array[$i] = array(
@@ -71,10 +89,6 @@ class PathologieServices{
             $lastpidP = $row['pidP'];
         }
         return($array);
-    }
-
-    function getMeridienByPathologie(){
-
     }
 } 
 

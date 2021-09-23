@@ -21,8 +21,6 @@ class SymptomeServices{
         return(($this->_db)->query("SELECT * FROM symptome")->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    }
-
     /**
      * Lists all keywords by symptome 
      * 
@@ -38,6 +36,7 @@ class SymptomeServices{
         $lastsidS = null;
         $array = null;
         while ($row = $res->fetch(PDO::FETCH_ASSOC)){ // C'est comme ça pour parse les results
+            if ($row['sidS'] != $lastsidS){
                 $j=0;
                 $array[$i] = array(
                     "idS" => $row['sidS'],

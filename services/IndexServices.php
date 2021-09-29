@@ -45,6 +45,9 @@ class IndexServices{
         if (!($this->elementExist("mail",$mail))){
             $res = ($this->_db)->query("INSERT INTO `user` (`mail`, `name`, `pass`) VALUES ( '".$mail."', '".$name."', '".password_hash($pass, PASSWORD_DEFAULT)."')");
             if ($this->elementExist("name",$name)){
+                session_regenerate_id();
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['name'] = $name;
                 return 1;
             }
         }

@@ -8,16 +8,9 @@ class PathologieSymptomesController {
     function routing($router){
         $router->get('/pathologieSymptomes', function(){
             session_start();
-            if (!isset($_SESSION['loggedin'])) {
-                //Non connecté
-                $layout = 'layouts/layout.twig';
-                
-            }else{
-                //Connecté
-                $layout = 'layouts/loggedin_layout.twig';
-            }
+
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
-                                                        'layout' => $layout,
+                                                        'session_name'=>$_SESSION['name'],
                                                         'dataToDisplay' => (new PathologieSymptomesServices())->getDataToDisplay("all"),
                                                         'symptomes' => (new SymptomeServices())->listAll()
                                                     ]);
@@ -25,16 +18,8 @@ class PathologieSymptomesController {
         
         $router->get('/pathologieSymptomes/critsympt=:symptomes', function($symptomes){
             session_start();
-            if (!isset($_SESSION['loggedin'])) {
-                //Non connecté
-                $layout = 'layouts/layout.twig';
-                
-            }else{
-                //Connecté
-                $layout = 'layouts/loggedin_layout.twig';
-            }
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
-                                                        'layout' => $layout,
+                                                        'session_name'=>$_SESSION['name'],
                                                         'dataToDisplay' => (new PathologieSymptomesServices())->getDataToDisplay($symptomes),
                                                         'symptomes' => (new SymptomeServices())->listAll()
                                                     ]);

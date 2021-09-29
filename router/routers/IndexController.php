@@ -19,13 +19,14 @@ class IndexController {
         $router->get('/', function(){
             session_start();
             // If the user is not logged in redirect to the login page...
+            
+            
+            
             if (!isset($_SESSION['loggedin'])) {
-                echo $GLOBALS['twig']->render('login.twig',[
-                    'layout'=>'layouts/layout.twig'
-                ]);
+                echo $GLOBALS['twig']->render('login.twig');
             }else{
                 echo $GLOBALS['twig']->render('index.twig',[
-                    'layout'=>'layouts/loggedin_layout.twig'
+                    'session_name'=>$_SESSION['name']
                 ]);
             }
         });
@@ -40,20 +41,17 @@ class IndexController {
             $pass = $_POST["pass"];
             if ($usrManagement->login($name, $pass)){
                 if (!isset($_SESSION['loggedin'])) {
-                    echo $GLOBALS['twig']->render('login.twig',[
-                        'layout'=>'layouts/layout.twig'
-                    ]);
+                    echo $GLOBALS['twig']->render('login.twig');
                     return 1;
                 }else{
                     echo $GLOBALS['twig']->render('index.twig',[
-                        'layout'=>'layouts/loggedin_layout.twig'
+                        'session_name'=>$_SESSION['name']
                     ]);
                     return 1;
                 }
             }
             echo $GLOBALS['twig']->render('login.twig',[
-                'error'=>'La combinaison d\'identifiant/mot de passe est mauvaise !',
-                'layout'=>'layouts/layout.twig'
+                'error'=>'La combinaison d\'identifiant/mot de passe est mauvaise !'
             ]);
         });
 
@@ -69,13 +67,13 @@ class IndexController {
             if ($usrManagement->register($name, $pass, $mail)){
                 echo $GLOBALS['twig']->render('index.twig',[
                     'sucess'=>'Vous êtes bien Enregistré !',
-                    'layout'=>'layouts/loggedin_layout.twig'
+                    'session_name'=>$_SESSION['name']
+                    
                 ]);
                 return 1;
             }
             echo $GLOBALS['twig']->render('index.twig',[
-                'error'=>'Vous n\'avez pas pu être enregistré !',
-                'layout'=>'layouts/layout.twig'
+                'error'=>'Vous n\'avez pas pu être enregistré !'
             ]);
             return 0;
             

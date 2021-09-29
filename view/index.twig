@@ -1,5 +1,4 @@
-
-{% extends layout %}
+{% extends 'layout.twig' %}
 
 {% block head %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -13,6 +12,8 @@
     {% if success is defined %}
         <blockquote>{{success}}</blockquote>
     {% endif %}
-    <h1>Bonjour </h1>
+    <div class="center">
+    <h1>Bonjour {{ session_name }}</h1>
+    </div>
 
 {% endblock %}

@@ -21,11 +21,11 @@ class IndexController {
             // If the user is not logged in redirect to the login page...
             if (!isset($_SESSION['loggedin'])) {
                 echo $GLOBALS['twig']->render('login.twig',[
-                    'layout'=>'headers/layout.twig'
+                    'layout'=>'layouts/layout.twig'
                 ]);
             }else{
                 echo $GLOBALS['twig']->render('index.twig',[
-                    'layout'=>'headers/loggedin_layout.twig'
+                    'layout'=>'layouts/loggedin_layout.twig'
                 ]);
             }
         });
@@ -41,19 +41,19 @@ class IndexController {
             if ($usrManagement->login($name, $pass)){
                 if (!isset($_SESSION['loggedin'])) {
                     echo $GLOBALS['twig']->render('login.twig',[
-                        'layout'=>'headers/layout.twig'
+                        'layout'=>'layouts/layout.twig'
                     ]);
                     return 1;
                 }else{
                     echo $GLOBALS['twig']->render('index.twig',[
-                        'layout'=>'headers/loggedin_layout.twig'
+                        'layout'=>'layouts/loggedin_layout.twig'
                     ]);
                     return 1;
                 }
             }
             echo $GLOBALS['twig']->render('login.twig',[
                 'error'=>'La combinaison d\'identifiant/mot de passe est mauvaise !',
-                'layout'=>'headers/layout.twig'
+                'layout'=>'layouts/layout.twig'
             ]);
         });
 
@@ -69,13 +69,13 @@ class IndexController {
             if ($usrManagement->register($name, $pass, $mail)){
                 echo $GLOBALS['twig']->render('index.twig',[
                     'sucess'=>'Vous êtes bien Enregistré !',
-                    'layout'=>'headers/loggedin_layout.twig'
+                    'layout'=>'layouts/loggedin_layout.twig'
                 ]);
                 return 1;
             }
             echo $GLOBALS['twig']->render('index.twig',[
                 'error'=>'Vous n\'avez pas pu être enregistré !',
-                'layout'=>'headers/layout.twig'
+                'layout'=>'layouts/layout.twig'
             ]);
             return 0;
             

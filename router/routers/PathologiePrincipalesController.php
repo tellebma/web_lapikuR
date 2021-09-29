@@ -8,11 +8,11 @@ class PathologiePrincipalesController {
             session_start();
             if (!isset($_SESSION['loggedin'])) {
                 //Non connecté
-                $layout = 'headers/layout.twig';
+                $layout = 'layouts/layout.twig';
                 
             }else{
                 //Connecté
-                $layout = 'headers/loggedin_layout.twig';
+                $layout = 'layouts/loggedin_layout.twig';
             }
             echo $GLOBALS['twig']->render('pathologiePrincipales.twig', [
                                                         'layout' => $layout,

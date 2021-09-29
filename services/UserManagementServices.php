@@ -2,7 +2,7 @@
 
 class UserManagementServices{
     function elementExist($row,$element){
-        $result = (Object)(new DataBaseService())->query("SELECT * FROM `user` WHERE `".$row."` LIKE '".$element."';");
+        $result = (Object)(new DataBaseServices())->query("SELECT * FROM `user` WHERE `".$row."` LIKE '".$element."';");
         if ($result->rowCount() > 0){
             return True;
         }
@@ -13,7 +13,7 @@ class UserManagementServices{
         $log = False;
         if ($this->elementExist("name",$name)){
             $q = "SELECT * FROM `user` WHERE `name` = '".$name."';";
-            $result = (Object)(new DataBaseService())->query($q); // It already was an object but was generating an error for some reason ?
+            $result = (Object)(new DataBaseServices())->query($q); // It already was an object but was generating an error for some reason ?
             
             while ($row = $result->fetch()){ // C'est comme ça pour parse les results
                 //FETCH_ASSOC => pour utiliser les $row['name...]
@@ -30,34 +30,36 @@ class UserManagementServices{
     function getUser($name){
         if ($this->elementExist("name",$name)){
             $q = "SELECT * FROM `user` WHERE `name` = '".$name."';";
-            $result = (Object)(new DataBaseService())->query($q); // It already was an object but was generating an error for some reason ?
+            $result = (Object)(new DataBaseServices())->query($q); // It already was an object but was generating an error for some reason ?
             
             while ($row = $result->fetch()){ // C'est comme ça pour parse les results
                 return $row;
             }
         }
-        return False;
+        return 0;
     }
 
     function login($name, $pass){
         //je ne sais pas comment l'utiliser...
         if ($this->passVerify($name, $pass)){
-            $usr = $this->getUser($name);
-            echo $GLOBALS['twig']->render('index.twig',[
-                'name'=>$usr->name,
-                'user_session'=>password_hash($usr->name.$usr->pass, PASSWORD_DEFAULT),
-            ]);
-            
+            session_regenerate_id();
+			$_SESSION['loggedin'] = TRUE;
+			$_SESSION['name'] = $name;
+            return 1;          
 
         }
+        return 0;
     }
 
 
     function register($name, $pass, $mail){
         if (!($this->elementExist("mail",$mail))){
             $res = (new DataBaseService())->query("INSERT INTO `user` (`mail`, `name`, `pass`) VALUES ( '".$mail."', '".$name."', '".password_hash($pass, PASSWORD_DEFAULT)."')");
-            print_r($res);
+            if ($this->elementExist("name",$name)){
+                return 1;
+            }
         }
+        return 0;
     }
 } 
 

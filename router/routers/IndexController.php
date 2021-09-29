@@ -19,9 +19,6 @@ class IndexController {
         $router->get('/', function(){
             session_start();
             // If the user is not logged in redirect to the login page...
-            
-            
-            
             if (!isset($_SESSION['loggedin'])) {
                 echo $GLOBALS['twig']->render('login.twig');
             }else{
@@ -40,15 +37,7 @@ class IndexController {
             $name = $_POST["name"];
             $pass = $_POST["pass"];
             if ($usrManagement->login($name, $pass)){
-                if (!isset($_SESSION['loggedin'])) {
-                    echo $GLOBALS['twig']->render('login.twig');
-                    return 1;
-                }else{
-                    echo $GLOBALS['twig']->render('index.twig',[
-                        'session_name'=>$_SESSION['name']
-                    ]);
-                    return 1;
-                }
+                header('Location: /');
             }
             echo $GLOBALS['twig']->render('login.twig',[
                 'error'=>'La combinaison d\'identifiant/mot de passe est mauvaise !'
@@ -72,7 +61,7 @@ class IndexController {
                 ]);
                 return 1;
             }
-            echo $GLOBALS['twig']->render('index.twig',[
+            echo $GLOBALS['twig']->render('login.twig',[
                 'error'=>'Vous n\'avez pas pu être enregistré !'
             ]);
             return 0;

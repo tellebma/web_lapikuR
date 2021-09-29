@@ -42,7 +42,7 @@ class IndexServices{
     }
 
     function register($name, $pass, $mail){
-        if (!($this->elementExist("mail",$mail))){
+        if (!($this->elementExist("mail",$mail))&&!($this->elementExist("name",$name))){
             $res = ($this->_db)->query("INSERT INTO `user` (`mail`, `name`, `pass`) VALUES ( '".$mail."', '".$name."', '".password_hash($pass, PASSWORD_DEFAULT)."')");
             if ($this->elementExist("name",$name)){
                 session_regenerate_id();

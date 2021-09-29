@@ -10,11 +10,11 @@ class PathologieSymptomesController {
             session_start();
             if (!isset($_SESSION['loggedin'])) {
                 //Non connecté
-                $layout = 'headers/layout.twig';
+                $layout = 'layouts/layout.twig';
                 
             }else{
                 //Connecté
-                $layout = 'headers/loggedin_layout.twig';
+                $layout = 'layouts/loggedin_layout.twig';
             }
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
                                                         'layout' => $layout,
@@ -27,11 +27,11 @@ class PathologieSymptomesController {
             session_start();
             if (!isset($_SESSION['loggedin'])) {
                 //Non connecté
-                $layout = 'headers/layout.twig';
+                $layout = 'layouts/layout.twig';
                 
             }else{
                 //Connecté
-                $layout = 'headers/loggedin_layout.twig';
+                $layout = 'layouts/loggedin_layout.twig';
             }
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
                                                         'layout' => $layout,

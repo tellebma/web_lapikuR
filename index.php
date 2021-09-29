@@ -16,8 +16,8 @@ $router = new Router($_GET['url']);
 // Routing
 
 // Site
-require_once 'router/routers/MainController.php';
-$mainController = (new MainController())->routing($router);
+require_once 'router/routers/IndexController.php';
+$indexController = (new IndexController())->routing($router);
 require_once 'router/routers/PathologiePrincipalesController.php';
 $pathologiePrincipalesController = (new PathologiePrincipalesController())->routing($router);
 require_once 'router/routers/PathologieCriteresController.php';

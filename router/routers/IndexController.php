@@ -1,8 +1,8 @@
 <?php
 
-require_once 'services/UserManagementServices.php';
+require_once 'services/IndexServices.php';
 
-class MainController {
+class IndexController {
     function routing($router){
         /**
          * Display main page
@@ -12,7 +12,7 @@ class MainController {
             // If the user is not logged in redirect to the login page...
             if (!isset($_SESSION['loggedin'])) {
                 echo $GLOBALS['twig']->render('login.twig');
-            }else
+            }else   
             echo $GLOBALS['twig']->render('index.twig');
         });
 
@@ -21,7 +21,7 @@ class MainController {
          */
         $router->post('/authentification', function(){
             session_start();
-            $usrManagement = (new UserManagementServices());
+            $usrManagement = (new IndexServices());
             $name = $_POST["name"];
             $pass = $_POST["pass"];
             if ($usrManagement->login($name, $pass)){
@@ -36,13 +36,6 @@ class MainController {
             echo $GLOBALS['twig']->render('login.twig',[
                 'error'=>'La combinaison d\'identifiant/mot de passe est mauvaise !'
             ]);
-            
-            
-            
-            // CONNECT TO DB
-            // RETRIEVE DATA FROM FORM
-            // CHECK IF EQUAL TO WHAT S STORED IN DB
-            // IF YES DO STUFF IF NO FUCK OFF this part is ?
         });
 
         /**
@@ -50,7 +43,7 @@ class MainController {
          */
         $router->post('/register', function(){
             session_start();
-            $usrManagement = (new UserManagementServices());
+            $usrManagement = (new IndexServices());
             $name = $_POST["name"];
             $pass = $_POST["pass"];
             $mail = $_POST["mail"];
@@ -69,19 +62,6 @@ class MainController {
 
 
         });
-
-        /**
-         * Gets data from a form, stores it into the db.
-         */
-        $router->get('/login', function(){
-            session_start();
-            // If the user is not logged in redirect to the login page...
-            if (!isset($_SESSION['loggedin'])) {
-                echo $GLOBALS['twig']->render('login.twig');
-            }else
-            header('Location: /');
-        });
-
 
         $router->get('/logout', function(){
             session_start();

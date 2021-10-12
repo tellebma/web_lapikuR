@@ -7,9 +7,7 @@ class PathologiePrincipalesController {
         $router->get('/pathologiePrincipales', function(){
             session_start();
             echo $GLOBALS['twig']->render('pathologiePrincipales.twig', [
-                                                        'session_name'=>$_SESSION['name'],
-                                                        'symptomesByPathologie' => (new PathologieServices())->getSymptomesByPathologie(),
-                                                        'pathologies' => (new PathologieServices())->listAll()
+                                                        'session_name'=>$_SESSION['name']
                                                     ]);
         });         
     }

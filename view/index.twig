@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+<body>
     {% if error is defined %}
         <blockquote>{{error}}</blockquote>
     {% endif %}
@@ -15,5 +15,5 @@
     <div class="center">
     <h1>Bonjour {{ session_name }}</h1>
     </div>
-
+</body>
 {% endblock %}

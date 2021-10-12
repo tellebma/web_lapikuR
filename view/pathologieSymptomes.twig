@@ -7,45 +7,47 @@
     <link type="text/css" rel="stylesheet" href="/public/styles/pathologieSymptomes.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
-        
+
 {% block content %}
-    <ul class="collapsible">
-        {% for item in dataToDisplay %}
-            <li>
-                <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
-                <div class="collapsible-body">
-                    <ul>
-                        {% for symptome in item.symptomes %}
-                            <li>{{ symptome.desc }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    <body>   
+        <ul class="collapsible">
+            {% for item in dataToDisplay %}
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">transfer_within_a_station</i>{{ item.desc|capitalize }}</div>
+                    <div class="collapsible-body">
+                        <ul>
+                            {% for symptome in item.symptomes %}
+                                <li>{{ symptome.desc }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
 
-    <div class="row">
-        <div class="input-field col s4 offset-m4">
-            <select id="selectSympt" multiple searchable="Type description">
-                {% set i = 1 %}
-                {% for symptome in symptomes %}
-                    <option value={{ i }}>{{ symptome.desc|capitalize }}</option>
-                    {% set i = i + 1 %}
-                {% endfor %}
-            </select>
-            <label>Symptomes</label>
+        <div class="row">
+            <div class="input-field col s4 offset-m4">
+                <select id="selectSympt" multiple searchable="Type description">
+                    {% set i = 1 %}
+                    {% for symptome in symptomes %}
+                        <option value={{ i }}>{{ symptome.desc|capitalize }}</option>
+                        {% set i = i + 1 %}
+                    {% endfor %}
+                </select>
+                <label>Symptomes</label>
+            </div>
         </div>
-    </div>
 
-     <div class="center">
-        <button onclick="postSymptomes()" class="btn waves-effect waves-light" type="submit">Submit
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $('select').formSelect();
-        $('.collapsible').collapsible();
-    });
-    </script>
+        <div class="center">
+            <button onclick="postSymptomes()" class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('select').formSelect();
+            $('.collapsible').collapsible();
+        });
+        </script>
+    </body>
 {% endblock %}

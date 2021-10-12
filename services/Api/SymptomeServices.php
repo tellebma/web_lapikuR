@@ -15,10 +15,23 @@ class SymptomeServices{
     /**
      * Lists content of the symptome table
      * 
+     * @param Int $id, Id of a specifig pathologie
      * @return Array, An array with all the resuts of the given query
      */
     function listAll(){
         return(($this->_db)->query("SELECT * FROM symptome")->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    /**
+     * List a symptome matching a given id
+     * 
+     * @param Int $id, Id of a specifig pathologie
+     * @return Array, An array with all the resuts of the given query
+     */
+    function getById($id){
+        return(($this->_db)->query("SELECT * FROM symptome
+                                    WHERE symptome.idS = $id
+                                    ORDER BY patho.idS")->fetchAll(PDO::FETCH_ASSOC));
     }
 
     /**

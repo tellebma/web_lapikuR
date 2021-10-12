@@ -14,6 +14,8 @@ class PathologieServices{
 
     /**
      * Lists content of the patho table
+     * 
+     * @return Array, An array with all the resuts of the given query
      */
     function listAll(){
         return(($this->_db)->query("SELECT * FROM patho")->fetchAll(PDO::FETCH_ASSOC));
@@ -23,6 +25,7 @@ class PathologieServices{
      * List a pathologie matching a given id
      * 
      * @param Int $id, Id of a specifig pathologie
+     * @return Array, An array with all the resuts of the given query
      */
     function getById($id){
         return(($this->_db)->query("SELECT * FROM patho
@@ -32,6 +35,8 @@ class PathologieServices{
 
     /**
      * Lists all pathologies with matchin meridien name instead of code
+     * 
+     * @return Array, An array with all the resuts of the given query
      */
     function getMeridienByPathologie(){
         return(($this->_db)->query("SELECT patho.idP, patho.desc, meridien.nom FROM patho
@@ -43,6 +48,7 @@ class PathologieServices{
      * Lists all symptomes for a given pathologie
      * 
      * @param Int $id, Id of a specifig pathologie
+     * @return Array, An array with all the resuts of the given query
      */
     function getSymptomesForPathologie($pathologieId){
         return(($this->_db)->query("SELECT * FROM patho 
@@ -54,6 +60,8 @@ class PathologieServices{
 
     /**
      * List all symptomes by pathologie
+     * 
+     * @return Array, An array with all the resuts of the given query
     */
     function getSymptomesByPathologie(){
         $res = ($this->_db)->query("SELECT patho.idP AS pidP, patho.desc AS pdesc, patho.mer, patho.type, meridien.nom, symptPatho.idP AS spidP, symptome.idS as sidS, symptome.desc as sdesc  FROM patho 

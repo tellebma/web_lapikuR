@@ -1,10 +1,6 @@
-.collapsible {
+.collection {
     margin: 2vh auto;
     overflow: scroll;
-    height: 65vh;
-    width: 80vw;
-}
-
-.dropdown-content > li > span{ 
-    display: inline-block;
+    height: auto;
+    max-height: 65vh;
 }

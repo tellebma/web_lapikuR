@@ -3,6 +3,8 @@
     It should be fairly easy to adapt it for use in single selects. :-)
 */
 
+const url = "http://localhost/api/"
+
 document.addEventListener('DOMContentLoaded', event => {
         document.querySelectorAll('select[searchable]').forEach(elem => {
                 const select = elem.M_FormSelect;
@@ -49,65 +51,60 @@ document.addEventListener('DOMContentLoaded', event => {
         });
 });
 
-// Filter. Really bad way to do it ? Maybe use my API to get the data I want to display.
+// JS Functions
 
 /**
- * Everytime an event is generated (everytime the select list is used) gets all selected elements by the client, hides
- * all the elements of the display div, gets all elements that correspond to the selected elements by the client, then
- * shows those elements
+ * Capitalize the first letter of a word
  * 
- * @param {Event} event, Used to get the id of the element used, a select in this case.
+ * @param {String} str 
+ * @returns The string with it's first letter capitalized
  */
-function filter(event){
-        let tabSelectedItems = [], select = event.target, result = false;
-        for (index of M.FormSelect.getInstance(document.getElementById(select.id)).getSelectedValues()){
-                tabSelectedItems.push(select[index - 1].innerHTML);
-        }
-
-        voidDisplay();
-
-        for (elem of getElementsToDisplay(tabSelectedItems)){
-                elem.style.display = "";
-                result = true;
-        }
-
-        if (!result){
-                resetDisplay();
-        }
+function capitalize(str) {
+        const lower = str.toLowerCase();
+        return str.charAt(0).toUpperCase() + lower.slice(1);
+}
+      
+/**
+ * Fetches all pathologies through the API and displays it in a list
+ */
+function fetchPathologies(){
+        let listToPopulate = document.getElementsByClassName("collection")[0];
+        let selectToPopulate = document.getElementById("selectPatho");
+        fetch(url + "pathologie/all").then(function(res){
+                return res.json().then(function(json){
+                        json.forEach((elem, i) => {
+                                let listElement = document.createElement("li"), optionElement = document.createElement("option");
+                                listElement.className = "collection-item";
+                                listElement.innerHTML = capitalize(elem.desc);
+                                optionElement.value = i+1;
+                                optionElement.innerHTML = capitalize(elem.desc);
+                                listToPopulate.appendChild(listElement);
+                                selectToPopulate.appendChild(optionElement);
+                        })
+                });
+        });
 }
 
 /**
- * Gets all elements that should be displayed thanks to the items selected by the client
- * 
- * @param {Array} tabSelectedItems 
- * @returns An array of all the DOM elements that match the items selected by the client
+ * Fetches all pathologies corresponding to a given name and displays results in a list and also populates a list with all pathologies
  */
-function getElementsToDisplay(tabSelectedItems){
-        let tabElementsToDisplay = [];
-        for (item of tabSelectedItems){
-                for (elem of document.getElementsByClassName("collapsible-header")){
-                        if (item === elem.lastChild.textContent){
-                                tabElementsToDisplay.push(elem);
-                        }
-                }
-        }
-        return tabElementsToDisplay;
-}
-
-/**
- * Sets the display style on all DOM elements with the classname "collapsible-header" to 'None'
- */
-function voidDisplay(){
-        for (elem of document.getElementsByClassName("collapsible-header")){
-                elem.style.display = "None";
-        }
-}
-
-/**
- * Sets the display style on all DOM elements with the classname "collapsible-header" to ''
- */
-function resetDisplay(){
-        for (elem of document.getElementsByClassName("collapsible-header")){
-                elem.style.display = "";
+function filterPathologies(){      
+        let listToPopulate = document.getElementsByClassName("collection")[0];
+        listToPopulate.innerHTML = "";
+        let id  = document.getElementById("selectPatho").value;
+        if (id == 0){
+                fetchPathologies();
+        }else{
+                fetch(url + "pathologie/" + id).then(function(res){
+                        return res.json().then(function(json){
+                                console.log(json);
+                                json.forEach((elem, i) => {
+                                        let listElement = document.createElement("li");
+                                        listElement.className = "collection-item";
+                                        listElement.innerHTML = capitalize(elem.desc);
+                                        listToPopulate.appendChild(listElement);
+                                })
+                        });
+                });
         }
 }

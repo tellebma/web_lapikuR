@@ -61,7 +61,6 @@ class PathologieSymptomesServices{
                 $i++;
             }else{
                 array_push($array[$i-1]['symptomes'], array("idS" => $row['sidS'], "desc" => $row['sdesc']));
-
             }
             $lastpidP = $row['pidP'];
         }

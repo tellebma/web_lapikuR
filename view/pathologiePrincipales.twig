@@ -9,30 +9,21 @@
 {% endblock %}
 
 {% block content %}
-    <body onload="fetchPathologies()">  
-
+    <body>  
         <div  class="row">
-            <div class="list col s8 push-s2">
-                <ul class="collection">
-                    <!-- Filled by API call -->
-                </ul>
-            </div>
+            <ul class="collection col s8 push-s2">
+                <!-- Filled by API call -->
+            </ul>
         </div>
 
         <div  class="row">
             <div class="input-field col s4 push-s4">
-                <select onchange="filterPathologies()" id="selectPatho" multiple searchable="Type description">
+                <select onchange="filterByPathologies()" id="selectPatho" searchable="Type description">
                     <option value=0>All</option>
                     <!-- Filled by API call -->
                 </select>
                 <label>Type de pathologie</label>
             </div>
         </div>
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('select').formSelect();
-            });
-        </script>
     </body>
 {% endblock %}

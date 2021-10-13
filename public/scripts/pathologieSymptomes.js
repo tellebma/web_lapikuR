@@ -1,11 +1,13 @@
 const url = "http://localhost/api/";
 
+// JS Functions
+
 /*
     MaterializeCSS tweak to allow text filtering in multiple selects.
     It should be fairly easy to adapt it for use in single selects. :-)
 */
 
-document.addEventListener('DOMContentLoaded', event => {
+function renderSearch(event){
     document.querySelectorAll('select[searchable]').forEach(elem => {
             const select = elem.M_FormSelect;
             const options = select.dropdownOptions.querySelectorAll('li:not(.optgroup)');
@@ -49,38 +51,124 @@ document.addEventListener('DOMContentLoaded', event => {
             }
             searchBox.addEventListener('keyup', filterOptions);
     });
-});
-
-// postSymptomes
-
-/**
- * Forges an URL depending on the elements selected by the client
- */
-function postSymptomes(){
-    let tabElementsSelected = getElementsSelected(), stringHref = "";
-    stringHref += "critsympt=";
-    if (tabElementsSelected.length === 0){
-        stringHref += "all-";
-    }else{
-        for (elem of tabElementsSelected){
-            if (elem === tabElementsSelected.at(-1)){
-                stringHref += elem.replace(/ /g,"_") + "-";
-            }else{
-                stringHref += elem.replace(/ /g,"_") + ".";
-            }
-        }
-    }
-    document.location = "/pathologieSymptomes/" + (stringHref).slice(0, -1);
 }
 
 /**
  * Adds all selected elements to an Array
  * @returns An Array with all selected elements gated behind a key corresponding to one select.
  */
-function getElementsSelected(){
+ function getElementsSelected(){
     let tabSelectedItems = [], select = document.getElementById("selectSympt");
     for (index of M.FormSelect.getInstance(select).getSelectedValues()){
-        tabSelectedItems.push(select[index - 1].innerHTML);
+        tabSelectedItems.push(select[index - 1].value);
     }
     return tabSelectedItems;
 }
+
+/**
+ * Capitalize the first letter of a word
+ * 
+ * @param {String} str 
+ * @returns The string with it's first letter capitalized
+ */
+ function capitalize(str) {
+    const lower = str.toLowerCase();
+    return str.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+/**
+ * Fetches all symptomes and pathologies and displays it in a collapsible
+ */
+function fetchSymptomesByPathologies(){
+    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0];
+    fetch(url + "pathologie/all/symptomes").then(function(res){
+            return res.json().then(function(json){
+                    json.forEach(elem => {
+                        let listHeader = document.createElement("li"), divHeader = document.createElement("div"), divBody = document.createElement("div"), ulBody = document.createElement("ul");
+                        divHeader.className = "collapsible-header";
+                        divHeader.innerHTML = '<i class="material-icons">transfer_within_a_station</i>' + capitalize(elem.desc);                   
+                        divBody.className = "collapsible-body";
+                        elem.symptomes.forEach((elemBis, i) =>{
+                            let listElement = document.createElement("li");
+                            listElement.innerHTML = elemBis.desc;
+                            ulBody.appendChild(listElement);
+                        });
+                        divBody.appendChild(ulBody);
+                        listHeader.appendChild(divHeader);
+                        listHeader.appendChild(divBody);
+                        collapsibleToPopulate.appendChild(listHeader);
+                    });
+                    $('.collapsible').collapsible();
+            });
+    });
+}
+
+/**
+ * Fetches all symptomes and populates a select
+ * @param {Event} event 
+ */
+
+function fetchSymptomes(event){
+    let selectToPopulate = document.getElementById("selectSympt");
+    fetch(url + "symptome/all").then(function(res){
+            return res.json().then(function(json){
+                    json.forEach((elem, i) => {
+                        let optionElement = document.createElement("option");
+                        optionElement.value = i+1;
+                        optionElement.innerHTML = capitalize(elem.desc);
+                        selectToPopulate.appendChild(optionElement);
+                    });
+                    $('select').formSelect();
+                    renderSearch(event);
+            });
+    });
+}
+
+/**
+ * Filters according to selected symptomes. Will display any pathologie that has at least one symptom matching
+ */
+function filterBySymptomes(){
+    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0], arrayIdOfSelectedElements = getElementsSelected();
+    if (arrayIdOfSelectedElements.length != 0){
+        collapsibleToPopulate.innerHTML = "";
+        arrayIdOfSelectedElements.forEach(id => {
+            fetch(url + "pathologie/all/symptomes").then(function(res){
+                return res.json().then(function(json){
+                        json.forEach((elem, i) => {
+                            let display = false
+                            elem.symptomes.forEach(elemBis => {
+                                if (elemBis.idS == id){
+                                    display = true;
+                                }
+                            });
+                            if (display){
+                                let listHeader = document.createElement("li"), divHeader = document.createElement("div"), divBody = document.createElement("div"), ulBody = document.createElement("ul");
+                                divHeader.className = "collapsible-header";
+                                divHeader.innerHTML = '<i class="material-icons">transfer_within_a_station</i>' + capitalize(elem.desc);                   
+                                divBody.className = "collapsible-body";
+                                elem.symptomes.forEach((elemBis) =>{
+                                    let listElement = document.createElement("li");
+                                    listElement.innerHTML = elemBis.desc;
+                                    ulBody.appendChild(listElement);
+                                });
+                                divBody.appendChild(ulBody);
+                                listHeader.appendChild(divHeader);
+                                listHeader.appendChild(divBody);
+                                collapsibleToPopulate.appendChild(listHeader);
+                            }
+                        });
+                        $('.collapsible').collapsible();
+                });
+            });
+        });
+    }else{
+        fetchSymptomesByPathologies();
+    }
+}
+
+// Events
+
+window.addEventListener("load", event => {
+    fetchSymptomesByPathologies();
+    fetchSymptomes(event);
+});

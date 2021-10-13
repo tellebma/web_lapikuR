@@ -1,9 +1,8 @@
 .collapsible {
     margin: 2vh auto;
-    margin-bottom: 8vh;
     overflow: scroll;
-    height: 65vh;
-    width: 80vw;
+    height: auto;
+    max-height: 65vh;
 }
 
 .dropdown-content > li > span{ 

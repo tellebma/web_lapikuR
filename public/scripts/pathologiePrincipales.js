@@ -1,11 +1,13 @@
 const url = "http://localhost/api/";
 
+// JS Functions
+
 /*
     MaterializeCSS tweak to allow text filtering in multiple selects.
     It should be fairly easy to adapt it for use in single selects. :-)
 */
 
-document.addEventListener('DOMContentLoaded', event => {
+function renderSearch(event){
         document.querySelectorAll('select[searchable]').forEach(elem => {
                 const select = elem.M_FormSelect;
                 const options = select.dropdownOptions.querySelectorAll('li:not(.optgroup)');
@@ -49,9 +51,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 }
                 searchBox.addEventListener('keyup', filterOptions);
         });
-});
-
-// JS Functions
+}
 
 /**
  * Capitalize the first letter of a word
@@ -66,8 +66,9 @@ function capitalize(str) {
       
 /**
  * Fetches all pathologies through the API and displays it in a list
+ * @param {Event} event 
  */
-function fetchPathologies(){
+function fetchPathologies(event){
         let listToPopulate = document.getElementsByClassName("collection")[0];
         let selectToPopulate = document.getElementById("selectPatho");
         fetch(url + "pathologie/all").then(function(res){
@@ -81,6 +82,8 @@ function fetchPathologies(){
                                 listToPopulate.appendChild(listElement);
                                 selectToPopulate.appendChild(optionElement);
                         });
+                        $('select').formSelect();
+                        renderSearch(event);
                 });
         });
 }
@@ -88,7 +91,7 @@ function fetchPathologies(){
 /**
  * Fetches all pathologies corresponding to a given name and displays results in a list and also populates a list with all pathologies
  */
-function filterPathologies(){      
+function filterByPathologies(){      
         let listToPopulate = document.getElementsByClassName("collection")[0];
         listToPopulate.innerHTML = "";
         let id  = document.getElementById("selectPatho").value;
@@ -97,7 +100,6 @@ function filterPathologies(){
         }else{
                 fetch(url + "pathologie/" + id).then(function(res){
                         return res.json().then(function(json){
-                                console.log(json);
                                 json.forEach((elem, i) => {
                                         let listElement = document.createElement("li");
                                         listElement.className = "collection-item";
@@ -109,11 +111,8 @@ function filterPathologies(){
         }
 }
 
-// JS Functions
+// Events
 
-/**
- * Fetches all symptomes and pathologies and displays it in a collapsible
- */
-function fetchSymptomesByPathologies(){
-        
-}
+window.addEventListener("load", event => {
+        fetchPathologies(event);
+});

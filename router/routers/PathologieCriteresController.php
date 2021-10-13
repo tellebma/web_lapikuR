@@ -12,7 +12,7 @@ class PathologieCriteresController {
         $router->get('/pathologieCriteres', function(){
             session_start();
             echo $GLOBALS['twig']->render('pathologieCriteres.twig', [
-                                                        'session_name'=>$_SESSION['name'],
+                                                         'session_name'=>($_SESSION['name'] ??= NULL),
                                                         'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay("all", "all", "all"),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),
@@ -24,7 +24,7 @@ class PathologieCriteresController {
         $router->get('/pathologieCriteres/critmer=:meridiens-critpath=:pathologies-critcarac=:keywords', function($meridiens, $pathologies, $keywords){
             session_start();
             echo $GLOBALS['twig']->render('pathologieCriteres.twig', [
-                                                        'session_name'=>$_SESSION['name'],
+                                                        'session_name'=>($_SESSION['name'] ??= NULL),
                                                         'dataToDisplay' => (new PathologieCriteresServices())->getDataToDisplay($meridiens, $pathologies, $keywords),
                                                         'meridiens' => (new MeridienServices())->listAll(),
                                                         'pathologies' => (new PathologieServices())->listAll(),

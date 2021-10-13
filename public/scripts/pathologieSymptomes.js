@@ -128,14 +128,15 @@ function fetchSymptomes(event){
  * Filters according to selected symptomes. Will display any pathologie that has at least one symptom matching
  */
 function filterBySymptomes(){
-    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0], arrayIdOfSelectedElements = getElementsSelected();
+    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0], arrayIdOfSelectedElements = getElementsSelected(), display;
+    console.log(arrayIdOfSelectedElements);
     if (arrayIdOfSelectedElements.length != 0){
         collapsibleToPopulate.innerHTML = "";
         arrayIdOfSelectedElements.forEach(id => {
             fetch(url + "pathologie/all/symptomes").then(function(res){
                 return res.json().then(function(json){
-                        json.forEach((elem, i) => {
-                            let display = false
+                        json.forEach(elem => {
+                            display = false
                             elem.symptomes.forEach(elemBis => {
                                 if (elemBis.idS == id){
                                     display = true;

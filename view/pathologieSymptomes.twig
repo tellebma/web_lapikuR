@@ -17,7 +17,11 @@
         </div>
 
         <div class="row">
-            <div class="input-field col s4 push-s4">
+            <div class="input-field col s3 push-s2">
+                <input onchange="filterByPathologie()" id="pathologie" type="text" class="validate">
+                <label for="pathologie">Pathologie</label>
+            </div>
+            <div class="input-field col s4 push-s3">
                 <select onchange="filterBySymptomes()" id="selectSympt" multiple searchable="Type description">
                     <!-- Filled by API call -->
                 </select>

@@ -18,8 +18,6 @@ $router = new Router($_GET['url']);
 // Site
 require_once 'router/routers/IndexController.php';
 $indexController = (new IndexController())->routing($router);
-require_once 'router/routers/PathologiePrincipalesController.php';
-$pathologiePrincipalesController = (new PathologiePrincipalesController())->routing($router);
 require_once 'router/routers/PathologieCriteresController.php';
 $pathologieCriteresController = (new PathologieCriteresController())->routing($router);
 require_once 'router/routers/PathologieSymptomesController.php';

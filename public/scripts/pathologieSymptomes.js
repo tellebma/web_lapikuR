@@ -60,7 +60,7 @@ function renderSearch(event){
  function getElementsSelected(){
     let tabSelectedItems = [], select = document.getElementById("selectSympt");
     for (index of M.FormSelect.getInstance(select).getSelectedValues()){
-        tabSelectedItems.push(select[index - 1].value);
+        tabSelectedItems.push(select[index - 1].innerHTML);
     }
     return tabSelectedItems;
 }
@@ -107,7 +107,6 @@ function fetchSymptomesByPathologies(){
  * Fetches all symptomes and populates a select
  * @param {Event} event 
  */
-
 function fetchSymptomes(event){
     let selectToPopulate = document.getElementById("selectSympt");
     fetch(url + "symptome/all").then(function(res){
@@ -128,17 +127,17 @@ function fetchSymptomes(event){
  * Filters according to selected symptomes. Will display any pathologie that has at least one symptom matching
  */
 function filterBySymptomes(){
-    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0], arrayIdOfSelectedElements = getElementsSelected(), display;
-    console.log(arrayIdOfSelectedElements);
-    if (arrayIdOfSelectedElements.length != 0){
+    let collapsibleToPopulate = document.getElementsByClassName("collapsible")[0], arrayOfSelectedElements = getElementsSelected(), display;
+    console.log(arrayOfSelectedElements);
+    if (arrayOfSelectedElements.length != 0){
         collapsibleToPopulate.innerHTML = "";
-        arrayIdOfSelectedElements.forEach(id => {
+        arrayOfSelectedElements.forEach(desc => {
             fetch(url + "pathologie/all/symptomes").then(function(res){
                 return res.json().then(function(json){
                         json.forEach(elem => {
-                            display = false
+                            display = false;
                             elem.symptomes.forEach(elemBis => {
-                                if (elemBis.idS == id){
+                                if (elemBis.desc.toLowerCase() == desc.toLowerCase()){
                                     display = true;
                                 }
                             });

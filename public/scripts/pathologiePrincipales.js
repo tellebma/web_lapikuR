@@ -70,19 +70,14 @@ function capitalize(str) {
  */
 function fetchPathologies(event){
         let listToPopulate = document.getElementsByClassName("collection")[0];
-        let selectToPopulate = document.getElementById("selectPatho");
         fetch(url + "pathologie/all").then(function(res){
                 return res.json().then(function(json){
                         json.forEach((elem, i) => {
-                                let listElement = document.createElement("li"), optionElement = document.createElement("option");
+                                let listElement = document.createElement("li");
                                 listElement.className = "collection-item";
                                 listElement.innerHTML = capitalize(elem.desc);
-                                optionElement.value = i+1;
-                                optionElement.innerHTML = capitalize(elem.desc);
                                 listToPopulate.appendChild(listElement);
-                                selectToPopulate.appendChild(optionElement);
                         });
-                        $('select').formSelect();
                         renderSearch(event);
                 });
         });
@@ -91,24 +86,22 @@ function fetchPathologies(event){
 /**
  * Fetches all pathologies corresponding to a given name and displays results in a list and also populates a list with all pathologies
  */
-function filterByPathologies(){      
+function filterByPathologie(){
+        let textInput = document.getElementById("pathologie").value;
         let listToPopulate = document.getElementsByClassName("collection")[0];
         listToPopulate.innerHTML = "";
-        let id  = document.getElementById("selectPatho").value;
-        if (id == 0){
-                fetchPathologies();
-        }else{
-                fetch(url + "pathologie/" + id).then(function(res){
-                        return res.json().then(function(json){
-                                json.forEach((elem, i) => {
+        fetch(url + "pathologie/all").then(function(res){
+                return res.json().then(function(json){
+                        json.forEach((elem, i) => {
+                                if (elem.desc.includes(textInput.toLowerCase())){
                                         let listElement = document.createElement("li");
                                         listElement.className = "collection-item";
                                         listElement.innerHTML = capitalize(elem.desc);
                                         listToPopulate.appendChild(listElement);
-                                });
+                                }
                         });
                 });
-        }
+        });
 }
 
 // Events

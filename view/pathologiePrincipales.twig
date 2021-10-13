@@ -10,19 +10,16 @@
 
 {% block content %}
     <body>  
-        <div  class="row">
+        <div class="row">
             <ul class="collection col s8 push-s2">
                 <!-- Filled by API call -->
             </ul>
         </div>
 
-        <div  class="row">
+        <div class="row">
             <div class="input-field col s4 push-s4">
-                <select onchange="filterByPathologies()" id="selectPatho" searchable="Type description">
-                    <option value=0>All</option>
-                    <!-- Filled by API call -->
-                </select>
-                <label>Type de pathologie</label>
+                <input onchange="filterByPathologie()" id="pathologie" type="text" class="validate">
+                <label for="pathologie">Pathologie</label>
             </div>
         </div>
     </body>

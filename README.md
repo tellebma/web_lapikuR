@@ -22,8 +22,9 @@ https://symfony.com/doc/current/routing.html
 
 # TODO
 
-En fait les deux pages en mode API c'est dla merde faut revoir y a des pbs d'ID
-Pb vient de la bdd qui passe de 248 a 250 par exemple donc mettre en place la recherche API par nom
+Sur la page mergée faire en sorte qu'une recherche impact l'autre, i.e si j'ai filtrer toutes les pathos ac Mér dans le nom, faudrait que le filtre pas symptome se fasse uniquement sur ce que j'ai sous les yeux et que ça évite d'ignorer l'autre filtre.
+
+Ou bien un filte reset l'autre, à voir !
 
 # Important !!!
 

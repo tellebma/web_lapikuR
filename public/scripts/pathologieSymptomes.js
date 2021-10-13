@@ -1,3 +1,5 @@
+const url = "http://localhost/api/";
+
 /*
     MaterializeCSS tweak to allow text filtering in multiple selects.
     It should be fairly easy to adapt it for use in single selects. :-)

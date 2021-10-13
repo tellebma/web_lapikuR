@@ -1,9 +1,9 @@
+const url = "http://localhost/api/";
+
 /*
     MaterializeCSS tweak to allow text filtering in multiple selects.
     It should be fairly easy to adapt it for use in single selects. :-)
 */
-
-const url = "http://localhost/api/"
 
 document.addEventListener('DOMContentLoaded', event => {
         document.querySelectorAll('select[searchable]').forEach(elem => {
@@ -80,7 +80,7 @@ function fetchPathologies(){
                                 optionElement.innerHTML = capitalize(elem.desc);
                                 listToPopulate.appendChild(listElement);
                                 selectToPopulate.appendChild(optionElement);
-                        })
+                        });
                 });
         });
 }
@@ -103,8 +103,17 @@ function filterPathologies(){
                                         listElement.className = "collection-item";
                                         listElement.innerHTML = capitalize(elem.desc);
                                         listToPopulate.appendChild(listElement);
-                                })
+                                });
                         });
                 });
         }
+}
+
+// JS Functions
+
+/**
+ * Fetches all symptomes and pathologies and displays it in a collapsible
+ */
+function fetchSymptomesByPathologies(){
+        
 }

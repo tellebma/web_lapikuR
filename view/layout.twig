@@ -14,7 +14,7 @@
                 <li><a href="/pathologiePrincipales">Pathologie(s) Principales</a></li>
                 <li><a href="/pathologieCriteres">Pathologie(s) via Critere(s)</a></li>
                 <li><a href="/pathologieSymptomes">Pathologie(s) via Symptome(s)</a></li>
-                {% if session_name is defined %}
+                {% if session_name is not null %}
                     <li><a href="/logout">Déconnexion</a></li>
                 {% endif %}
 

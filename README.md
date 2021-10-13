@@ -23,6 +23,7 @@ https://symfony.com/doc/current/routing.html
 # TODO
 
 En fait les deux pages en mode API c'est dla merde faut revoir y a des pbs d'ID
+Pb vient de la bdd qui passe de 248 a 250 par exemple donc mettre en place la recherche API par nom
 
 # Important !!!
 

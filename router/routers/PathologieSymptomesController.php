@@ -9,14 +9,14 @@ class PathologieSymptomesController {
         $router->get('/pathologieSymptomes', function(){
             session_start();
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
-                                                        'session_name'=>$_SESSION['name'],
+                                                        'session_name'=>($_SESSION['name'] ??= NULL),
                                                     ]);
         });   
         
         $router->get('/pathologieSymptomes/critsympt=:symptomes', function($symptomes){
             session_start();
             echo $GLOBALS['twig']->render('pathologieSymptomes.twig', [
-                                                        'session_name'=>$_SESSION['name'],
+                                                        'session_name'=>($_SESSION['name'] ??= NULL),
                                                         'dataToDisplay' => (new PathologieSymptomesServices())->getDataToDisplay($symptomes),
                                                         'symptomes' => (new SymptomeServices())->listAll()
                                                     ]);

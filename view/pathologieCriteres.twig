@@ -54,8 +54,15 @@
         </div>
 
         <div class="center">
+        {% if session_name is not null %}
             <button onclick="postCriterias()" class="btn waves-effect waves-light" type="submit">Submit
-                <i class="material-icons right">send</i>
+        {% else %}
+            <blockquote class="center-align">
+            Vous devez être connecté pour utiliser cette fonction
+            </blockquote>
+            <button disabled onclick="postCriterias()" class="btn waves-effect waves-light" type="submit">Submit
+        {% endif %}
+        <i class="material-icons right">send</i>
             </button>
         </div>
 

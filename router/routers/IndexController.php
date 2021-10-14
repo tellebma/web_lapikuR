@@ -4,15 +4,6 @@ require_once 'services/IndexServices.php';
 
 class IndexController {
     function routing($router){
-        
-        /**
-         *  session_start();
-         *   if (!isset($_SESSION['loggedin'])) {
-         *       //Non connecté
-         *   }else{
-         *       //Connecté
-         *   }
-         */ 
         /**
          * Display main page
          */

@@ -79,6 +79,12 @@ class IndexController {
         $router->get('/login', function(){
             header('Location: /');
         });
+
+
+        $router->get('/credits', function(){
+            echo $GLOBALS['twig']->render('credits.twig');
+        });
+        
     }
 };
 

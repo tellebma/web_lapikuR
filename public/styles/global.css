@@ -1,0 +1,25 @@
+/*FOOTER CSS*/
+
+footer{
+    position: inherit;
+    background-color: pink;
+    padding: 1em 1em;
+    margin-top: 4em;
+    
+}
+.footerright{
+    position: absolute;
+    margin-right: 10em;
+    right: 0;
+    color:midnightblue
+}
+.footerright:hover{
+    color:mediumorchid
+}
+.footerleft{
+    position: relative;
+    margin-left: 10em;
+    color: orangered;
+}
+
+

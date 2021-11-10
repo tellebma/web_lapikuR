@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class PathologieSymptomesController {
     function routing($router){
         $router->get('/pathologieSymptomes', function(){

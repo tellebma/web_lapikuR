@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'services/PathologieCriteresServices.php';
 require_once 'services/Api/PathologieServices.php';
 require_once 'services/Api/MeridienServices.php';

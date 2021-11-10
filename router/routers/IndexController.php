@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'services/IndexServices.php';
 
 class IndexController {
@@ -79,6 +79,19 @@ class IndexController {
         $router->get('/login', function(){
             header('Location: /');
         });
+
+
+        $router->get('/credits', function(){
+            if (!isset($_SESSION['loggedin'])) {
+                echo $GLOBALS['twig']->render('credits.twig');
+            }else{
+                echo $GLOBALS['twig']->render('credits.twig',[
+                    'session_name'=>$_SESSION['name']
+                ]);
+            }
+            
+        });
+        
     }
 };
 

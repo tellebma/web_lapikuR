@@ -82,7 +82,14 @@ class IndexController {
 
 
         $router->get('/credits', function(){
-            echo $GLOBALS['twig']->render('credits.twig');
+            if (!isset($_SESSION['loggedin'])) {
+                echo $GLOBALS['twig']->render('credits.twig');
+            }else{
+                echo $GLOBALS['twig']->render('credits.twig',[
+                    'session_name'=>$_SESSION['name']
+                ]);
+            }
+            
         });
         
     }

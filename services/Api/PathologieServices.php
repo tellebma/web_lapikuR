@@ -34,6 +34,18 @@ class PathologieServices{
     }
 
     /**
+     * List a pathologie matching a given type
+     * 
+     * @param Str $type, type of a specifig pathologie
+     * @return Array, An array with all the resuts of the given query
+     */
+    function getByType($type){
+        return(($this->_db)->query("SELECT * FROM patho
+                                    WHERE patho.type = $type
+                                    ORDER BY patho.type")->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    /**
      * Lists all pathologies with matchin meridien name instead of code
      * 
      * @return Array, An array with all the resuts of the given query

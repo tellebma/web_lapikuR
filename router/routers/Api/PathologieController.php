@@ -42,9 +42,18 @@ class PathologieController{
         /**
          * Get pathologie thanks to it's id
          */
-        $router->get('/api/pathologie/:id', function($id){
+        $router->get('/api/pathologie/:all', function($all){
             (new ApiHelpers())->setHeaders();
-            echo json_encode((new PathologieServices())->getById($id));
+            if(preg_match('/^\d+$/', $all)){
+                echo json_encode((new PathologieServices())->getById($all));
+            }
+            else if(preg_match('/^[a-z]+$/', $all)){
+                $all = "\"$all\""; // C'est moche
+                echo json_encode((new PathologieServices())->getByType($all));
+            }
+            else{
+                echo json_encode("Wrong endpoint : ".$all);
+            }
         });
 
         

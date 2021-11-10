@@ -22,3 +22,6 @@ https://symfony.com/doc/current/routing.html
 
 ## -- TODO
 - [x] Tout terminé
+- [x] Appel API par type dans les pathologies
+- [x] Merge Credits
+- [ ] Fixer footer en bas  :(

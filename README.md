@@ -1,10 +1,10 @@
 # Infos utiles
 
-## GIT CREDENTIALS
+## -- GIT CREDENTIALS
 
 Pour push, pull... utiliser votre *Personal Access Token* disponible sur Github. 
 
-## ***La VM:***
+## -- ***La VM:***
 Si jamais la [VM](https://mega.nz/file/TQ01HA5R#lJZTauoUR7IHgFtcBrtCZc-7-wzqaUWqywc2RzRK6xE).
 
 ### Connexion VM:
@@ -20,5 +20,5 @@ pass:password</br>
 rooting avec Symfony
 https://symfony.com/doc/current/routing.html
 
-## TODO
+## -- TODO
 - [x] Tout terminé
